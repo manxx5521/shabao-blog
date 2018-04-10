@@ -10,8 +10,8 @@ spring:
     username: master
     password: 19911105man
   cache:
-    cache-names: sysConfig
-    time-to-live: 600000  	
+#    cache-names: sysConfig
+#    time-to-live: 10000  	
   redis:
     database: 2
     port: 6379

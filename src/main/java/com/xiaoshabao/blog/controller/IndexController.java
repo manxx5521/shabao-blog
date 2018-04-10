@@ -3,6 +3,7 @@ package com.xiaoshabao.blog.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -37,5 +38,19 @@ public class IndexController extends BaseController{
 	public String test(){
 		return sysConfig.getString(SysEnum.DOMAIN.getName());
 	}
+	
+	// 缓存管理
+		@Autowired
+		private CacheManager cacheManager;
+		
+		/**
+		 * 系统启动后清空系统参数缓存
+		 */
+		@ResponseBody
+		@GetMapping("/clear")
+		public String test1() {
+			cacheManager.getCache("sysConfig").clear();
+			return "true";
+		}
 
 }
