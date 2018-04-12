@@ -12,9 +12,6 @@ package com.xiaoshabao.blog.controller;
 /**
  * 
  * 返回页面配置
- * 
- * @author langhsu
- *
  */
 public interface Views {
 	String LOGIN = "/auth/login";

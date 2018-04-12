@@ -1,56 +1,27 @@
 package com.xiaoshabao.blog.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.xiaoshabao.base.component.SysConfig;
-import com.xiaoshabao.base.component.SysEnum;
 import com.xiaoshabao.base.controller.BaseController;
+import com.xiaoshabao.blog.lang.Consts;
 
 /**
- * @author langhsu
- *
+ *主页
  */
 @Controller
 public class IndexController extends BaseController{
-	@Autowired
-	private SysConfig sysConfig;
 	
-	@RequestMapping(value= {"/", "/index"})
-	public String root(ModelMap model, HttpServletRequest request) {
-		String order = ServletRequestUtils.getStringParameter(request, "order",/* Consts.order.NEWEST*/"newest");
-		int pn = ServletRequestUtils.getIntParameter(request, "pn", 1);
+	@GetMapping(value= {"/", "/index"})
+	public String root(ModelMap model,@RequestParam(defaultValue=Consts.order.NEWEST) String order,
+			@RequestParam(defaultValue="1") Integer pn,
+			@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
 		model.put("order", order);
 		model.put("pn", pn);
-		return "default"+Views.INDEX;
+		return skin+Views.INDEX;
 	}
 	
-	@ResponseBody
-	@GetMapping("/test")
-	public String test(){
-		return sysConfig.getString(SysEnum.DOMAIN.getName());
-	}
-	
-	// 缓存管理
-		@Autowired
-		private CacheManager cacheManager;
-		
-		/**
-		 * 系统启动后清空系统参数缓存
-		 */
-		@ResponseBody
-		@GetMapping("/clear")
-		public String test1() {
-			cacheManager.getCache("sysConfig").clear();
-			return "true";
-		}
 
 }
