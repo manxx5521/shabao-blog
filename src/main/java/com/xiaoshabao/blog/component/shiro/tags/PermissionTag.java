@@ -1,7 +1,7 @@
 package com.xiaoshabao.blog.component.shiro.tags;
 
-import com.xiaoshabao.blog.component.shiro.tags.function.DirectiveFunction;
-import com.xiaoshabao.blog.component.shiro.tags.function.VerifyFunction;
+import com.xiaoshabao.blog.component.freemarker.DirectiveFunction;
+import com.xiaoshabao.blog.component.freemarker.TemplateDirective;
 import com.xiaoshabao.blog.lang.Consts;
 
 import freemarker.template.TemplateModelException;
@@ -9,16 +9,17 @@ import freemarker.template.TemplateModelException;
 /**
  * <p>Equivalent to {@link org.apache.shiro.web.tags.PermissionTag}</p>
  */
-public abstract class PermissionTag extends SecureTag {
+public abstract class PermissionTag extends TemplateDirective {
 
     @Override
 	protected void execute(DirectiveFunction function) throws TemplateModelException {
-    	VerifyFunction<String> f=(str)->{
+    	
+    	//验证参数
+    	String name=function.verifyString("name",str->{
     		if(str.length()==0) {
     			throw new TemplateModelException("变量名称不存在");
     		}
-    	};
-    	String name=function.verifyString("name",f);
+    	});
     	
     	boolean show = showTagBody(name);
         if (!show) {

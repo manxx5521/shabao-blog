@@ -25,6 +25,13 @@ public interface Consts {
 	/**超级管理员标识*/
 	String ROLE_ADMIN = "admin";
 	
+	/**
+	 * 分隔符
+	 */
+	String SEPARATOR = ",";
+	
+	int ZERO = 0;
+	
 	//--------------*************************************
 	
 	
@@ -36,10 +43,7 @@ public interface Consts {
 	 */
 	String AVATAR = "/dist/images/ava/default.png";
 	
-	/**
-	 * 分隔符
-	 */
-	String SEPARATOR = ",";
+	
 
 	int IDENTITY_STEP = 1; // 自增步进
 
@@ -48,7 +52,7 @@ public interface Consts {
 	// 忽略值
 	int IGNORE = -1;
 
-	int ZERO = 0;
+	
 
 	// 禁用状态
 	int STATUS_CLOSED = 1;

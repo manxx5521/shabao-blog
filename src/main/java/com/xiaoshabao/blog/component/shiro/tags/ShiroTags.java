@@ -1,9 +1,8 @@
 package com.xiaoshabao.blog.component.shiro.tags;
 
-import freemarker.template.DefaultObjectWrapperBuilder;
+import com.xiaoshabao.blog.component.freemarker.FreemarkerConsts;
+
 import freemarker.template.SimpleHash;
-import freemarker.template.TemplateHashModel;
-import freemarker.template.TemplateModel;
 
 /**
  * shiro指令
@@ -13,7 +12,7 @@ public class ShiroTags extends SimpleHash {
 	private static final long serialVersionUID = 2578819184945561599L;
 
 	public ShiroTags() {
-//		this.super();
+		super(FreemarkerConsts.DEFAULT_OBJECT_WRAPPER);
     	put("hasPermission", new HasPermissionTag());
     	/*
         put("authenticated", new AuthenticatedTag());
