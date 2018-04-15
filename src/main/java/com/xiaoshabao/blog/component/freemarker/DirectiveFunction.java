@@ -24,6 +24,8 @@ public class DirectiveFunction {
 	private TemplateModel[] loopVars;
 	/** 输出实体 */
 	private TemplateDirectiveBody body;
+	/**当前指令域的变量集*/
+	private Environment.Namespace namespace;
 	
 	private int rsize=0;
 	
@@ -35,6 +37,7 @@ public class DirectiveFunction {
 		this.params = params;
 		this.loopVars = loopVars;
 		this.body = body;
+		this.namespace = env.getCurrentNamespace();
 	}
 	/**
 	 * 获得参数的 TemplateModel
@@ -76,7 +79,7 @@ public class DirectiveFunction {
 	/**
 	 * 返回变量数字变量
 	 * @param key
-	 * @return 不存在时返回null
+	 * @return
 	 */
 	public Integer getInteger(String key,Integer defaultValue) throws TemplateModelException {
 		Integer value=getInteger(key);
@@ -110,26 +113,55 @@ public class DirectiveFunction {
 	
 	/**
 	 * 添加返回变量
+	 * <p>
+	 * 变量使用时需要声明返回变量result1，result1 
+	 *  <@role userid='123456' roleid='admin'; result1,result2 >
+	 * </p>
 	 * @param obj
 	 * @param index
 	 */
-	public void addResult(Object obj) {
+	public DirectiveFunction addResult(Object obj) {
 		this.addResult(obj,++rsize);
+		return this;
 	}
 	
 	/**
 	 * 添加返回变量
+	 * <p>
+	 * 变量使用时需要声明返回变量result1，result1 
+	 *  <@role userid='123456' roleid='admin'; result1,result2 >
+	 * </p>
 	 * @param obj
 	 * @param index
 	 */
-	public void addResult(Object obj,int index) {
+	public DirectiveFunction addResult(Object obj,int index) {
 		if(obj instanceof String) {
 			loopVars[index]=new SimpleScalar(obj.toString());
 		}else if(obj instanceof Boolean) {
 			loopVars[index]=(Boolean)obj?TemplateBooleanModel.TRUE:TemplateBooleanModel.FALSE;
 		}
+		return this;
 	}
-	
+	/**
+	 * 将一个变量返回当前指令域
+	 * @param key
+	 * @param value
+	 * @return
+	 * @throws TemplateModelException
+	 */
+	public DirectiveFunction put(String key, Object value) throws TemplateModelException {
+        namespace.put(key, wrap(value));
+        return this;
+    }
+	/**
+     * 包装对象
+     * @param object
+     * @return
+     * @throws TemplateModelException
+     */
+    public TemplateModel wrap(Object object) throws TemplateModelException {
+        return env.getObjectWrapper().wrap(object);
+    }
 	/**
 	 * 显示指令里的内容
 	 * @throws IOException 

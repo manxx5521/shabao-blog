@@ -14,11 +14,17 @@ import org.springframework.beans.BeanUtils;
 import com.xiaoshabao.blog.dto.AccountProfile;
 import com.xiaoshabao.blog.dto.AuthMenu;
 import com.xiaoshabao.blog.dto.Channel;
+import com.xiaoshabao.blog.dto.Favor;
+import com.xiaoshabao.blog.dto.Feeds;
+import com.xiaoshabao.blog.dto.Notify;
 import com.xiaoshabao.blog.dto.Post;
 import com.xiaoshabao.blog.dto.Role;
 import com.xiaoshabao.blog.dto.User;
 import com.xiaoshabao.blog.entity.AuthMenuPO;
 import com.xiaoshabao.blog.entity.ChannelPO;
+import com.xiaoshabao.blog.entity.FavorPO;
+import com.xiaoshabao.blog.entity.FeedsPO;
+import com.xiaoshabao.blog.entity.NotifyPO;
 import com.xiaoshabao.blog.entity.PostPO;
 import com.xiaoshabao.blog.entity.RolePO;
 import com.xiaoshabao.blog.entity.UserPO;
@@ -77,12 +83,12 @@ public class BeanMapUtils {
 		passport.setAuthMenus(menus);
 		return passport;
 	}
-
+/*
 	public static Comment copy(CommentPO po) {
 		Comment ret = new Comment();
 		BeanUtils.copyProperties(po, ret);
 		return ret;
-	}
+	}*/
 
 	public static Post copy(PostPO po, int level) {
 		Post d = new Post();
@@ -118,23 +124,27 @@ public class BeanMapUtils {
 		r.setAuthMenus(authMenus);
 		return r;
 	}
-
+	
+	public static Notify copy(NotifyPO po) {
+		Notify ret = new Notify();
+		BeanUtils.copyProperties(po, ret);
+		return ret;
+	}
+	
+	
 	public static Feeds copy(FeedsPO po) {
 		Feeds ret = new Feeds();
 		BeanUtils.copyProperties(po, ret);
 		return ret;
 	}
 
-	public static Notify copy(NotifyPO po) {
-		Notify ret = new Notify();
-		BeanUtils.copyProperties(po, ret);
-		return ret;
-	}
+	
 
 	public static Favor copy(FavorPO po) {
 		Favor ret = new Favor();
 		BeanUtils.copyProperties(po, ret);
 		return ret;
 	}
+	
 
 }

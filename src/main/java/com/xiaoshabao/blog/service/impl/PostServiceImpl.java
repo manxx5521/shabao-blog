@@ -9,6 +9,20 @@
 */
 package com.xiaoshabao.blog.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +36,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.xiaoshabao.base.component.SpringContextHolder;
+import com.xiaoshabao.blog.dao.PostAttributeDao;
 import com.xiaoshabao.blog.dao.PostDao;
+import com.xiaoshabao.blog.dto.Channel;
 import com.xiaoshabao.blog.dto.Post;
+import com.xiaoshabao.blog.dto.User;
+import com.xiaoshabao.blog.entity.PostAttribute;
 import com.xiaoshabao.blog.entity.PostPO;
+import com.xiaoshabao.blog.event.FeedsEvent;
 import com.xiaoshabao.blog.lang.Consts;
+import com.xiaoshabao.blog.lang.EntityStatus;
+import com.xiaoshabao.blog.service.ChannelService;
+import com.xiaoshabao.blog.service.FavorService;
 import com.xiaoshabao.blog.service.PostService;
-
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Predicate;
-import java.util.*;
+import com.xiaoshabao.blog.service.UserEventService;
+import com.xiaoshabao.blog.service.UserService;
+import com.xiaoshabao.blog.util.BeanMapUtils;
+import com.xiaoshabao.blog.util.PreviewTextUtils;
 
 /**
  * @author langhsu
@@ -42,6 +65,7 @@ import java.util.*;
 public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostDao postDao;
+	
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -52,7 +76,6 @@ public class PostServiceImpl implements PostService {
 	private ChannelService channelService;
 	@Autowired
 	private PostAttributeDao postAttributeDao;
-
 	@Override
 	@Cacheable
 	public Page<Post> paging(Pageable pageable, int channelId, String ord) {
@@ -90,7 +113,31 @@ public class PostServiceImpl implements PostService {
 
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
+	
+	private List<Post> toPosts(List<PostPO> posts) {
+		List<Post> rets = new ArrayList<>();
 
+		HashSet<Long> pids = new HashSet<>();
+		HashSet<Long> uids = new HashSet<>();
+		HashSet<Integer> groupIds = new HashSet<>();
+
+		posts.forEach(po -> {
+			pids.add(po.getId());
+			uids.add(po.getAuthorId());
+			groupIds.add(po.getChannelId());
+
+			rets.add(BeanMapUtils.copy(po, 0));
+		});
+
+		// 加载用户信息
+		buildUsers(rets, uids);
+		buildGroups(rets, groupIds);
+
+		return rets;
+	}
+
+	
+	
 	@Override
 	public Page<Post> paging4Admin(Pageable pageable, long id, String title, int channelId) {
 		Page<PostPO> page = postDao.findAll((root, query, builder) -> {
@@ -201,7 +248,6 @@ public class PostServiceImpl implements PostService {
 		List<PostPO> list = postDao.findAllByIdIn(ids);
 		Map<Long, Post> rets = new HashMap<>();
 
-		HashSet<Long> imageIds = new HashSet<>();
 		HashSet<Long> uids = new HashSet<>();
 
 		list.forEach(po -> {
@@ -254,18 +300,19 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Cacheable(key = "'view_' + #id")
 	public Post get(long id) {
-		PostPO po = postDao.findOne(id);
+		Optional<PostPO> opo = postDao.findById(id);
 		Post d = null;
-		if (po != null) {
+		if (opo.isPresent()) {
+			PostPO po=opo.get();
 			d = BeanMapUtils.copy(po, 1);
 
 			d.setAuthor(userService.get(d.getAuthorId()));
 
 			d.setChannel(channelService.getById(d.getChannelId()));
 
-			PostAttribute attr = postAttributeDao.findOne(po.getId());
-			if (attr != null) {
-				d.setContent(attr.getContent());
+			Optional<PostAttribute> attr = postAttributeDao.findById(po.getId());
+			if (attr.isPresent()) {
+				d.setContent(attr.get().getContent());
 			}
 		}
 		return d;
@@ -279,9 +326,9 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void update(Post p){
-		PostPO po = postDao.findOne(p.getId());
-
-		if (po != null) {
+		Optional<PostPO> opo = postDao.findById(p.getId());
+		if (opo.isPresent()) {
+			PostPO po=opo.get();
 			po.setTitle(p.getTitle());//标题
 			po.setChannelId(p.getChannelId());
 
@@ -306,9 +353,10 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void updateFeatured(long id, int featured) {
-		PostPO po = postDao.findOne(id);
+		Optional<PostPO> opo = postDao.findById(id);
 
-		if (po != null) {
+		if (opo.isPresent()) {
+			PostPO po=opo.get();
 			int status = Consts.FEATURED_ACTIVE == featured ? Consts.FEATURED_ACTIVE: Consts.FEATURED_DEFAULT;
 			po.setFeatured(status);
 			postDao.save(po);
@@ -319,9 +367,10 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void updateWeight(long id, int weight) {
-		PostPO po = postDao.findOne(id);
+		Optional<PostPO> opo = postDao.findById(id);
 
-		if (po != null) {
+		if (opo.isPresent()) {
+			PostPO po=opo.get();
 			int max = weight;
 			if (Consts.FEATURED_ACTIVE == weight) {
 				max = postDao.maxWeight() + 1;
@@ -335,9 +384,9 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void delete(long id) {
-		PostPO po = postDao.findOne(id);
-		if (po != null) {
-			postDao.delete(po);
+		Optional<PostPO> opo = postDao.findById(id);
+		if (opo.isPresent()) {
+			postDao.delete(opo.get());
 		}
 	}
 	
@@ -345,10 +394,10 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void delete(long id, long authorId) {
-		PostPO po = postDao.findOne(id);
-		if (po != null) {
+		Optional<PostPO> opo = postDao.findById(id);
+		if (opo.isPresent()) {
 			// 判断文章是否属于当前登录用户
-			Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
+			Assert.isTrue(opo.get().getAuthorId() == authorId, "认证失败");
 
 			delete(id);
 		}
@@ -364,8 +413,9 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	public void identityViews(long id) {
-		PostPO po = postDao.findOne(id);
-		if (po != null) {
+		Optional<PostPO> opo = postDao.findById(id);
+		if (opo.isPresent()) {
+			PostPO po=opo.get();
 			po.setViews(po.getViews() + Consts.IDENTITY_STEP);
 			postDao.save(po);
 		}
@@ -374,8 +424,9 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	public void identityComments(long id) {
-		PostPO po = postDao.findOne(id);
-		if (po != null) {
+		Optional<PostPO> opo = postDao.findById(id);
+		if (opo.isPresent()) {
+			PostPO po=opo.get();
 			po.setComments(po.getComments() + Consts.IDENTITY_STEP);
 			postDao.save(po);
 		}
@@ -385,8 +436,9 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(key = "'view_' + #postId")
 	public void favor(long userId, long postId) {
-		PostPO po = postDao.findOne(postId);
-
+		Optional<PostPO> opo = postDao.findById(postId);
+		PostPO po=opo.get();
+		
 		Assert.notNull(po, "文章不存在");
 
 		favorService.add(userId, postId);
@@ -398,7 +450,8 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(key = "'view_' + #postId")
 	public void unfavor(long userId, long postId) {
-		PostPO po = postDao.findOne(postId);
+		Optional<PostPO> opo = postDao.findById(postId);
+		PostPO po=opo.get();
 
 		Assert.notNull(po, "文章不存在");
 
@@ -422,27 +475,7 @@ public class PostServiceImpl implements PostService {
 		return PreviewTextUtils.getText(text, 126);
 	}
 
-	private List<Post> toPosts(List<PostPO> posts) {
-		List<Post> rets = new ArrayList<>();
-
-		HashSet<Long> pids = new HashSet<>();
-		HashSet<Long> uids = new HashSet<>();
-		HashSet<Integer> groupIds = new HashSet<>();
-
-		posts.forEach(po -> {
-			pids.add(po.getId());
-			uids.add(po.getAuthorId());
-			groupIds.add(po.getChannelId());
-
-			rets.add(BeanMapUtils.copy(po, 0));
-		});
-
-		// 加载用户信息
-		buildUsers(rets, uids);
-		buildGroups(rets, groupIds);
-
-		return rets;
-	}
+	
 
 	private void buildUsers(Collection<Post> posts, Set<Long> uids) {
 		Map<Long, User> userMap = userService.findMapByIds(uids);

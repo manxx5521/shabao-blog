@@ -21,13 +21,9 @@ import freemarker.template.TemplateException;
 
 /**
  * 文章内容查询
- *
  * 示例：
- * 	请求：http://mtons.com/index?ord=newest&pn=2
+ * 	请求：http://127.0.0.1:8080/index?ord=newest&pn=2
  *  使用：@contents group=x pn=pn ord=ord
- *
- * @author langhsu
- *
  */
 @Component
 public class ContentsDirective extends TemplateDirective {
@@ -41,21 +37,9 @@ public class ContentsDirective extends TemplateDirective {
         String order = function.getString("order", Consts.order.NEWEST);
         Pageable pageable = PageRequest.of(pn - 1, 15);
         Page<Post> result = postService.paging(pageable, channelId, order);
+        
 
         function.put(RESULTS, result).render();
 	}
-
-    @Override
-    public String getName() {
-        return "contents";
-    }
-
-    @Override
-    public void execute(DirectiveHandler handler) throws Exception {
-        
-
-        
-    }
-
 	
 }

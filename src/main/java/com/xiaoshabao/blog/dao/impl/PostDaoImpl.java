@@ -28,9 +28,11 @@ import org.springframework.data.domain.Pageable;
 import com.xiaoshabao.blog.dao.PostDaoCustom;
 import com.xiaoshabao.blog.dto.Post;
 import com.xiaoshabao.blog.entity.PostPO;
+import com.xiaoshabao.blog.util.BeanMapUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,8 @@ public class PostDaoImpl implements PostDaoCustom {
 				.matching(q).createQuery();
 
 		org.hibernate.search.jpa.FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
-		query.setFirstResult(pageable.getOffset());
+		
+		query.setFirstResult((int)pageable.getOffset());
 		query.setMaxResults(pageable.getPageSize());
 
 	    StandardAnalyzer standardAnalyzer = new StandardAnalyzer();
@@ -62,6 +65,7 @@ public class PostDaoImpl implements PostDaoCustom {
         QueryScorer queryScorer = new QueryScorer(luceneQuery);
         Highlighter highlighter = new Highlighter(formatter, queryScorer);
         
+		@SuppressWarnings("unchecked")
 		List<PostPO> list = query.getResultList();
 	    List<Post> rets = new ArrayList<>(list.size());
 
@@ -96,12 +100,13 @@ public class PostDaoImpl implements PostDaoCustom {
 		luceneQuery = term.createQuery();
 
 		org.hibernate.search.jpa.FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
-	    query.setFirstResult(pageable.getOffset());
+	    query.setFirstResult((int)pageable.getOffset());
 	    query.setMaxResults(pageable.getPageSize());
 
 		Sort sort = new Sort(new SortField("id", SortField.Type.LONG, true));
 		query.setSort(sort);
 
+		@SuppressWarnings("unchecked")
 		List<PostPO> results = query.getResultList();
 		List<Post> rets = new ArrayList<>(results.size());
 

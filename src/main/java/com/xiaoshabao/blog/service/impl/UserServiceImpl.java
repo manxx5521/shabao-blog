@@ -9,6 +9,7 @@
 */
 package com.xiaoshabao.blog.service.impl;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.xiaoshabao.blog.dao.RoleDao;
+import com.xiaoshabao.blog.dao.UserDao;
+import com.xiaoshabao.blog.dto.AccountProfile;
+import com.xiaoshabao.blog.dto.AuthMenu;
+import com.xiaoshabao.blog.dto.BadgesCount;
+import com.xiaoshabao.blog.dto.User;
+import com.xiaoshabao.blog.entity.AuthMenuPO;
+import com.xiaoshabao.blog.entity.RolePO;
+import com.xiaoshabao.blog.entity.UserPO;
+import com.xiaoshabao.blog.lang.EntityStatus;
+import com.xiaoshabao.blog.lang.MtonsException;
+import com.xiaoshabao.blog.service.NotifyService;
 import com.xiaoshabao.blog.service.UserService;
+import com.xiaoshabao.blog.util.BeanMapUtils;
 
 import java.util.*;
 
@@ -105,7 +119,7 @@ public class UserServiceImpl implements UserService {
 		BeanUtils.copyProperties(user, po);
 
 		Date now = Calendar.getInstance().getTime();
-		po.setPassword(MD5.md5(user.getPassword()));
+		po.setPassword(DigestUtils.md5Hex(user.getPassword()));
 		po.setStatus(EntityStatus.ENABLED);
 		po.setActiveEmail(EntityStatus.ENABLED);
 		po.setCreated(now);
@@ -119,23 +133,24 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@CacheEvict(key = "#user.getId()")
 	public AccountProfile update(User user) {
-		UserPO po = userDao.findOne(user.getId());
-		if (null != po) {
+		Optional<UserPO> opo = userDao.findById(user.getId());
+		if (opo.isPresent()) {
+			UserPO po=opo.get();
 			po.setName(user.getName());
 			po.setSignature(user.getSignature());
 			userDao.save(po);
+			return BeanMapUtils.copyPassport(po);
 		}
-		return BeanMapUtils.copyPassport(po);
+		return null;
 	}
 
 	@Override
 	@Transactional
 	@CacheEvict(key = "#id")
 	public AccountProfile updateEmail(long id, String email) {
-		UserPO po = userDao.findOne(id);
-
-		if (null != po) {
-
+		Optional<UserPO> opo = userDao.findById(id);
+		if (opo.isPresent()) {
+			UserPO po=opo.get();
 			if (email.equals(po.getEmail())) {
 				throw new MtonsException("邮箱地址没做更改");
 			}
@@ -149,18 +164,18 @@ public class UserServiceImpl implements UserService {
 			po.setActiveEmail(EntityStatus.ENABLED);
 
 			userDao.save(po);
+			return BeanMapUtils.copyPassport(po);
 		}
-
-		return BeanMapUtils.copyPassport(po);
+		return null;
 	}
 
 	@Override
 	@Cacheable(key = "#userId")
 	public User get(long userId) {
-		UserPO po = userDao.findOne(userId);
+		Optional<UserPO> opo= userDao.findById(userId);
 		User ret = null;
-		if (po != null) {
-			ret = BeanMapUtils.copy(po, 0);
+		if (opo.isPresent()) {
+			ret = BeanMapUtils.copy(opo.get(), 0);
 		}
 		return ret;
 	}
@@ -191,23 +206,26 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@CacheEvict(key = "#id")
 	public AccountProfile updateAvatar(long id, String path) {
-		UserPO po = userDao.findOne(id);
-		if (po != null) {
+		Optional<UserPO> opo= userDao.findById(id);
+		if (opo.isPresent()) {
+			UserPO po=opo.get();
 			po.setAvatar(path);
 			userDao.save(po);
+			return BeanMapUtils.copyPassport(po);
 		}
-		return BeanMapUtils.copyPassport(po);
+		return null;
 	}
 
 	@Override
 	@Transactional
 	public void updatePassword(long id, String newPassword) {
-		UserPO po = userDao.findOne(id);
+		Optional<UserPO> opo= userDao.findById(id);
 
 		Assert.hasLength(newPassword, "密码不能为空!");
 
-		if (null != po) {
-			po.setPassword(MD5.md5(newPassword));
+		if (opo.isPresent()) {
+			UserPO po=opo.get();
+			po.setPassword(DigestUtils.md5Hex(newPassword));
 			userDao.save(po);
 		}
 	}
@@ -215,13 +233,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void updatePassword(long id, String oldPassword, String newPassword) {
-		UserPO po = userDao.findOne(id);
+		Optional<UserPO> opo= userDao.findById(id);
 
 		Assert.hasLength(newPassword, "密码不能为空!");
 
-		if (po != null) {
-			Assert.isTrue(MD5.md5(oldPassword).equals(po.getPassword()), "当前密码不正确");
-			po.setPassword(MD5.md5(newPassword));
+		if (opo.isPresent()) {
+			UserPO po=opo.get();
+			Assert.isTrue(DigestUtils.md5Hex(oldPassword).equals(po.getPassword()), "当前密码不正确");
+			po.setPassword(DigestUtils.md5Hex(newPassword));
 			userDao.save(po);
 		}
 	}
@@ -229,9 +248,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void updateStatus(long id, int status) {
-		UserPO po = userDao.findOne(id);
+		Optional<UserPO> opo= userDao.findById(id);
 
-		if (po != null) {
+		if (opo.isPresent()) {
+			UserPO po=opo.get();
 			po.setStatus(status);
 			userDao.save(po);
 		}
@@ -240,13 +260,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public AccountProfile updateActiveEmail(long id, int activeEmail) {
-		UserPO po = userDao.findOne(id);
+		Optional<UserPO> opo= userDao.findById(id);
 
-		if (po != null) {
+		if (opo.isPresent()) {
+			UserPO po=opo.get();
 			po.setActiveEmail(activeEmail);
 			userDao.save(po);
+			return BeanMapUtils.copyPassport(po);
 		}
-		return BeanMapUtils.copyPassport(po);
+		return null;
 	}
 
 	@Override
@@ -254,15 +276,16 @@ public class UserServiceImpl implements UserService {
 	public void updateRole(long id, Long[] roleIds) {
 		List<RolePO> rolePOs = new ArrayList<>();
 		for(Long roleId:roleIds){
-			RolePO rolePO = roleDao.findOne(roleId);
-			rolePOs.add(rolePO);
+			Optional<RolePO> rolePO = roleDao.findById(roleId.longValue());
+			rolePOs.add(rolePO.get());
 		}
-		UserPO po = userDao.findOne(id);
+		Optional<UserPO> opo= userDao.findById(id);
 
-		if (po != null) {
+		if (opo.isPresent()) {
+			UserPO po=opo.get();
 			po.setRoles(rolePOs);
+			userDao.save(po);
 		}
-		userDao.save(po);
 	}
 
 	@Override
@@ -295,8 +318,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<AuthMenu> getMenuList(long id) {
 		List<AuthMenu> menus = new ArrayList<>();
-		UserPO userPO = userDao.findOne(id);
-		List<RolePO> roles = userPO.getRoles();
+		Optional<UserPO> opo= userDao.findById(id);
+		List<RolePO> roles = opo.get().getRoles();
 		for(RolePO role : roles){
 			List<AuthMenuPO> menuPOs = role.getAuthMenus();
 			for(AuthMenuPO menuPO : menuPOs){
