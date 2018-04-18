@@ -6,9 +6,30 @@ spring:
     name: shabao-blog
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.91.220.42:3306/mblog?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://47.91.220.42:3306/db_mblog?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: master
     password: 19911105man
+    
+  #jpa配置
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+      hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      hibernate.cache.use_second_level_cache: false
+      hibernate.search.default.directory_provider: filesystem
+      hibernate.search.default.indexBase: ./indexes
+    open-in-view: true
+    
+  #freemarker配置
+  freemarker:
+    request-context-attribute: request
+    settings:
+      number_format: 0.##
+    
   cache:
 #    cache-names: sysConfig
 #    time-to-live: 10000  	

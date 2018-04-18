@@ -1,6 +1,6 @@
 <#include "/default/utils/ui.ftl"/>
 
-<@layout>
+<@layout "" "" "">
 <div class="row streams">
     <div class="col-xs-12 col-md-9 side-left">
         <div class="panel panel-default">

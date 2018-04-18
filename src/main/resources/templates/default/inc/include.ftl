@@ -29,7 +29,7 @@ ${site_metas}
 
     window.app = {
         base: '${base}',
-        LOGIN_TOKEN: '${profile.id}'
+        LOGIN_TOKEN: '${profile!}'
     };
 
     window.UEDITOR_HOME_URL = '${base}/dist/vendors/ueditor/';
