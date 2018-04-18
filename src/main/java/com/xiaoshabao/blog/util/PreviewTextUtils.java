@@ -48,7 +48,7 @@ public class PreviewTextUtils {
      */
     public static String getSimpleHtml(String html) {
         if (html == null)
-            return null;
+            return null; 
         return Jsoup.clean(html, Whitelist.simpleText());
     }
 
@@ -65,7 +65,4 @@ public class PreviewTextUtils {
         return image == null ? null : image.attr("src");
     }
 
-    public static void main(String[] args) {
-        System.out.println(PreviewTextUtils.getText("<script>alert</script>test  ", 5));
-    }
 }

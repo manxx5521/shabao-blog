@@ -113,7 +113,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<maimClass>com.xiaoshabao.example.ApplicationExample</maimClass>
+					<maimClass>com.xiaoshabao.blog.BlogApplication</maimClass>
 					<fork>true</fork>
 				</configuration>
 			</plugin>
