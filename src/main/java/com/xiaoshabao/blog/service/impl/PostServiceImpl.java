@@ -78,7 +78,6 @@ public class PostServiceImpl implements PostService {
 	private PostAttributeDao postAttributeDao;
 	
 	@Override
-	@Cacheable("temp_postsCaches")
 	public Page<Post> paging(Pageable pageable, int channelId, String ord) {
 		Page<PostPO> page = postDao.findAll((root, query, builder) -> {
 

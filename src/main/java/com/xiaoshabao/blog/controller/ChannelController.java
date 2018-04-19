@@ -9,13 +9,10 @@
 */
 package com.xiaoshabao.blog.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,14 +35,13 @@ public class ChannelController extends BaseController {
 	private PostService postService;
 	
 	@RequestMapping("/channel/{id}")
-	public String channel(@PathVariable Integer id, ModelMap model,
-			HttpServletRequest request,@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
-		// init params
-		String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
-		int pn = ServletRequestUtils.getIntParameter(request, "pn", 1);
+	public String channel(ModelMap model,@PathVariable Integer id, 
+			@RequestParam(defaultValue=Consts.order.NEWEST) String order,
+			@RequestParam(defaultValue="1") Integer pn,
+			@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
 
 		Channel channel = channelService.getById(id);
-		// callback params
+		
 		model.put("channel", channel);
 		model.put("order", order);
 		model.put("pn", pn);
@@ -53,7 +49,8 @@ public class ChannelController extends BaseController {
 	}
 
 	@RequestMapping("/view/{id}")
-	public String view(@PathVariable Long id, ModelMap model,@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
+	public String view(ModelMap model, @PathVariable Long id,
+			@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
 		Post view = postService.get(id);
 
 		Assert.notNull(view, "该文章已被删除");

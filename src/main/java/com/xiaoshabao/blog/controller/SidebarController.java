@@ -64,7 +64,7 @@ public class SidebarController extends BaseController {
 
 		try {
 			SecurityUtils.getSubject().login(token);
-			data = Data.success("登录成功", ShiroUtil.getSubject().getProfile());
+			data = Data.success("登录成功", ShiroUtil.getProfile());
 
 		} catch (Exception e) {
 			if (e instanceof UnknownAccountException) {
@@ -80,7 +80,7 @@ public class SidebarController extends BaseController {
 
 	@RequestMapping("/latests")
 	public @ResponseBody List<Post> latests() {
-		AccountProfile up = ShiroUtil.getSubject().getProfile();
+		AccountProfile up = ShiroUtil.getProfile();
 		long ignoreUserId = 0;
 		if (up != null) {
 			ignoreUserId = up.getId();
@@ -91,7 +91,7 @@ public class SidebarController extends BaseController {
 	
 	@RequestMapping("/hots")
 	public @ResponseBody List<Post> hots() {
-		AccountProfile up = ShiroUtil.getSubject().getProfile();
+		AccountProfile up = ShiroUtil.getProfile();
 		long ignoreUserId = 0;
 		if (up != null) {
 			ignoreUserId = up.getId();

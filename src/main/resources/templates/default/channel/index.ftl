@@ -1,5 +1,5 @@
 <#include "/default/utils/ui.ftl"/>
-<@layout channel.name>
+<@layout channel.name?default(site_name) site_keywords site_description>
     <div class="row streams">
         <div class="col-xs-12 col-md-9 side-left">
             <div class="panel panel-default">

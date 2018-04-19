@@ -15,7 +15,8 @@ import com.xiaoshabao.blog.lang.Consts;
 public class IndexController extends BaseController{
 	
 	@GetMapping(value= {"/", "/index"})
-	public String root(ModelMap model,@RequestParam(defaultValue=Consts.order.NEWEST) String order,
+	public String root(ModelMap model
+			,@RequestParam(defaultValue=Consts.order.NEWEST) String order,
 			@RequestParam(defaultValue="1") Integer pn,
 			@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
 		model.put("order", order);
