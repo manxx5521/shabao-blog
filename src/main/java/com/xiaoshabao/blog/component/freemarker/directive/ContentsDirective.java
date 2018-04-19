@@ -38,8 +38,7 @@ public class ContentsDirective extends TemplateDirective {
         Pageable pageable = PageRequest.of(pn - 1, 15);
         Page<Post> result = postService.paging(pageable, channelId, order);
         
-
-        function.put(RESULTS, result).render();
+        function.put(RESULTS, result);
 	}
 	
 }

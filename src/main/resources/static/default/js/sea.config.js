@@ -1,6 +1,6 @@
 seajs.config({
     alias: {
-        'plugins': 'dist/js/plugins',
+        'plugins': '/static/dist/js/plugins',
 
             /* modules */
         'main': 'default/js/modules/main',
@@ -36,8 +36,8 @@ seajs.config({
 
     // 路径配置
     paths: {
-        'vendors': _base_path + '/dist/vendors',
-        'dist': _base_path + '/dist',
+        'vendors': _base_path + '/static/dist/vendors',
+        'dist': _base_path + '/static/dist',
         'default': _base_path + '/static/default'
     },
 

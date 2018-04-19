@@ -1,10 +1,12 @@
 package com.xiaoshabao.blog.component.freemarker;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 import freemarker.core.Environment;
 import freemarker.template.SimpleScalar;
+import freemarker.template.SimpleSequence;
 import freemarker.template.TemplateBooleanModel;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
@@ -30,6 +32,8 @@ public class DirectiveFunction {
 	private int rsize=0;
 	
 	private boolean isRender=true;
+	
+	private boolean hasParams=false;
 
 	public DirectiveFunction(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) {
 		super();
@@ -121,7 +125,9 @@ public class DirectiveFunction {
 	 * @param index
 	 */
 	public DirectiveFunction addResult(Object obj) {
-		this.addResult(obj,++rsize);
+		this.addResult(obj,rsize);
+		rsize++;
+		hasParams=true;
 		return this;
 	}
 	
@@ -139,6 +145,8 @@ public class DirectiveFunction {
 			loopVars[index]=new SimpleScalar(obj.toString());
 		}else if(obj instanceof Boolean) {
 			loopVars[index]=(Boolean)obj?TemplateBooleanModel.TRUE:TemplateBooleanModel.FALSE;
+		}else if(obj instanceof Collection&&((Collection)obj).size()>0){
+			loopVars[index]=new SimpleSequence((Collection)obj,FreemarkerConsts.DEFAULT_OBJECT_WRAPPER);
 		}
 		return this;
 	}
@@ -151,6 +159,7 @@ public class DirectiveFunction {
 	 */
 	public DirectiveFunction put(String key, Object value) throws TemplateModelException {
         namespace.put(key, wrap(value));
+        hasParams=true;
         return this;
     }
 	/**
@@ -169,7 +178,7 @@ public class DirectiveFunction {
 	 * @throws Exception
 	 */
 	public void render() throws TemplateException, IOException {
-		if(isRender&&rsize>0) {
+		if(isRender&&hasParams) {
 			body.render(env.getOut());//输出变量
 		}
 	}

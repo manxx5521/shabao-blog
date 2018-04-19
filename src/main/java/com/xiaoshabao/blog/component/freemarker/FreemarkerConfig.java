@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.xiaoshabao.blog.component.freemarker.directive.ContentsDirective;
 import com.xiaoshabao.blog.component.freemarker.directive.ResourceDirective;
+import com.xiaoshabao.blog.component.freemarker.directive.TimeAgoMethod;
 import com.xiaoshabao.blog.component.shiro.tags.ShiroTags;
 
 import freemarker.template.Configuration;
@@ -34,7 +35,7 @@ public class FreemarkerConfig {
 //        configuration.setSharedVariable("authc", applicationContext.getBean(AuthcDirective.class));
 //        configuration.setSharedVariable("banner", applicationContext.getBean(BannerDirective.class));
 //
-//        configuration.setSharedVariable("timeAgo", new TimeAgoMethod());
+        configuration.setSharedVariable("timeAgo", new TimeAgoMethod());
         configuration.setSharedVariable("shiro", new ShiroTags());
     }
 }

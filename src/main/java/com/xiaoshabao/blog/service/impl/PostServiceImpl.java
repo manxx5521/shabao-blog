@@ -76,8 +76,9 @@ public class PostServiceImpl implements PostService {
 	private ChannelService channelService;
 	@Autowired
 	private PostAttributeDao postAttributeDao;
+	
 	@Override
-	@Cacheable
+	@Cacheable("temp_postsCaches")
 	public Page<Post> paging(Pageable pageable, int channelId, String ord) {
 		Page<PostPO> page = postDao.findAll((root, query, builder) -> {
 
