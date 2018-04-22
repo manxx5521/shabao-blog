@@ -9,6 +9,14 @@
 */
 package com.xiaoshabao.blog.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.search.Sort;
@@ -18,6 +26,7 @@ import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.hibernate.search.SearchFactory;
 import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.MustJunction;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,24 +39,19 @@ import com.xiaoshabao.blog.dto.Post;
 import com.xiaoshabao.blog.entity.PostPO;
 import com.xiaoshabao.blog.util.BeanMapUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * @author langhsu
  *
  */
 public class PostDaoImpl implements PostDaoCustom {
 	@Autowired
 	@PersistenceContext
 	private EntityManager entityManager;
-
+	@PersistenceUnit EntityManagerFactory emf;
+	
 	@Override
 	public Page<Post> search(Pageable pageable, String q) throws Exception {
-		FullTextEntityManager fullTextSession = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
+		EntityManager em = emf.createEntityManager();
+		FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(em);
 
 		SearchFactory sf = fullTextSession.getSearchFactory();
 		QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();

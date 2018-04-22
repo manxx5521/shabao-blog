@@ -37,8 +37,10 @@ public class AccountRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = (String) principals.fromRealm(getName()).iterator().next();
-        if (username != null) {
+//        String username = (String) principals.fromRealm(getName()).iterator().next();
+        Object userObject=principals.getPrimaryPrincipal();
+        if (userObject != null) {
+        	String username=userObject.toString();
             User user = userService.getByUsername(username);
             if (user != null){
                 SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
