@@ -14,6 +14,7 @@ RUN echo $PATH
 
 RUN apt-get update
 RUN apt-get install zip
+RUN Y
 RUN wget https://codeload.github.com/manxx5521/shabao-base/zip/master
 RUN unzip master
 RUN mv shabao-base-master shabao-base
