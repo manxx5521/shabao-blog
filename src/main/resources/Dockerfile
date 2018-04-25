@@ -12,7 +12,8 @@ RUN export PATH=/usr/local/bin/apache-maven-3.3.9/bin:$PATH
 RUN ln -s /usr/local/bin/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn
 RUN echo $PATH
 
-RUN apt-get update
+RUN apt-get update && apt-get install -y \
+          zip
 RUN wget https://codeload.github.com/manxx5521/shabao-base/zip/master
 RUN unzip master
 RUN mv shabao-base-master shabao-base
