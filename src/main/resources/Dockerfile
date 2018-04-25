@@ -12,6 +12,18 @@ RUN export PATH=/usr/local/bin/apache-maven-3.3.9/bin:$PATH
 RUN ln -s /usr/local/bin/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn
 RUN echo $PATH
 
+RUN echo `ls` 
+RUN cd ..
+RUN echo `上级` 
+RUN echo `ls` 
+RUN cd ..
+RUN echo `上级` 
+RUN echo `ls` 
+RUN cd ..
+RUN echo `上级` 
+RUN echo `ls` 
+
+ADD application.yml /app/ 
 ADD pom.xml /app/  
 ADD src/ /app/src/
 WORKDIR /app/  
