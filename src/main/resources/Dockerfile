@@ -28,7 +28,9 @@ RUN rm -rf master
 RUN rm -rf shabao-blog
 
 
-WORKDIR /app/shabao-base/ 
+WORKDIR /app/shabao-base/
+RUN echo `pwd`
+RUN echo `ls`
 RUN mvn install
 WORKDIR /app/shabao-blog/ 
 RUN mvn package
