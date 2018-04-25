@@ -13,8 +13,6 @@ RUN ln -s /usr/local/bin/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn
 RUN echo $PATH
 
 RUN apt-get update
-RUN apt-get install zip \
-	&& Y
 RUN wget https://codeload.github.com/manxx5521/shabao-base/zip/master
 RUN unzip master
 RUN mv shabao-base-master shabao-base
