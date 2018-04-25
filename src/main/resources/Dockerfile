@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y zip
 
 RUN wget https://codeload.github.com/manxx5521/shabao-base/zip/master
 RUN unzip master
-RUN mv shabao-base-master /app/shabao-base-master
+RUN mv shabao-base-master /app/
 RUN rm -rf master
 
 RUN wget https://codeload.github.com/manxx5521/shabao-blog/zip/master
