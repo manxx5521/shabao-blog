@@ -13,14 +13,14 @@ RUN ln -s /usr/local/bin/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn
 RUN echo $PATH
 
 RUN wget https://codeload.github.com/manxx5521/shabao-base/zip/master
-RUN jar xvf master
+RUN unzip master
 RUN mv shabao-base-master shabao-base
 RUN cp -R shabao-base /app/
 RUN rm -rf master
 RUN rm -rf shabao-base
 
 RUN wget https://codeload.github.com/manxx5521/shabao-blog/zip/master
-RUN jar xvf master
+RUN unzip master
 RUN mv shabao-blog-master shabao-blog
 RUN cp -R shabao-blog /app/
 RUN rm -rf master
