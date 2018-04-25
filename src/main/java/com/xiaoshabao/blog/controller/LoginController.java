@@ -42,8 +42,9 @@ public class LoginController extends BaseController {
      * @return
      */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(String username, String password,@RequestParam(value = "rememberMe",defaultValue = "0") int rememberMe, ModelMap model) {
-		String ret = view(Views.LOGIN);
+	public String login(String username, String password,@RequestParam(value = "rememberMe",defaultValue = "0") int rememberMe, ModelMap model,
+			@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
+		String ret = skin+Views.LOGIN;
 		
 		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             return ret;
