@@ -12,24 +12,27 @@ RUN export PATH=/usr/local/bin/apache-maven-3.3.9/bin:$PATH
 RUN ln -s /usr/local/bin/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn
 RUN echo $PATH
 
-RUN echo `ls` 
-RUN cd ..
-RUN echo `上级` 
-RUN echo `ls` 
-RUN cd ..
-RUN echo `上级` 
-RUN echo `ls` 
-RUN cd ..
-RUN echo `上级` 
-RUN echo `ls` 
+RUN wget https://codeload.github.com/manxx5521/shabao-base/zip/master
+RUN tar xzvf shabao-base-master.zip
+RUN mv shabao-base-master shabao-base
+RUN cp -R shabao-base /app/
+RUN rm -rf shabao-base-master.zip
+RUN rm -rf shabao-base
 
-ADD application.yml /app/ 
-ADD pom.xml /app/  
-ADD src/ /app/src/
-WORKDIR /app/  
-RUN mvn package  
+RUN wget https://codeload.github.com/manxx5521/shabao-blog/zip/master
+RUN tar xzvf shabao-blog-master.zip
+RUN mv shabao-blog-master shabao-blog
+RUN cp -R shabao-blog /app/
+RUN rm -rf shabao-blog-master.zip
+RUN rm -rf shabao-blog
+
+
+WORKDIR /app/shabao-base/ 
+RUN mvn install
+WORKDIR /app/shabao-blog/ 
+RUN mvn package
 EXPOSE  8080  
 #指定容器的启动，可以指定参数
-#CMD ["java","-jar","target/connect-test-0.0.1-SNAPSHOT.jar"]
+#CMD ["java","-jar","target/shabao-blog-0.0.1.jar"]
 #容器启动时执行的命令
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/connect-test-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/shabao-blog-0.0.1.jar"]
