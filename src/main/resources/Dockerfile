@@ -15,24 +15,22 @@ RUN echo $PATH
 RUN apt-get update && apt-get install -y zip
 RUN wget https://codeload.github.com/manxx5521/shabao-base/zip/master
 RUN unzip master
-RUN mv shabao-base-master shabao-base
-RUN cp -R shabao-base /app/
+RUN cp -R shabao-base-master /app/
 RUN rm -rf master
-RUN rm -rf shabao-base
+RUN rm -rf shabao-base-master
 
 RUN wget https://codeload.github.com/manxx5521/shabao-blog/zip/master
 RUN unzip master
-RUN mv shabao-blog-master shabao-blog
-RUN cp -R shabao-blog /app/
+RUN cp -R shabao-blog-master /app/
 RUN rm -rf master
-RUN rm -rf shabao-blog
+RUN rm -rf shabao-blog-master
 
 
-WORKDIR /app/shabao-base/
+WORKDIR /app/shabao-base-master/
 RUN echo `pwd`
 RUN echo `ls`
 RUN mvn install
-WORKDIR /app/shabao-blog/ 
+WORKDIR /app/shabao-blog-master/ 
 RUN mvn package
 EXPOSE  8080  
 #指定容器的启动，可以指定参数
