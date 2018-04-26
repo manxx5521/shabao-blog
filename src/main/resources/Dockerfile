@@ -27,13 +27,3 @@ RUN rm -rf shabao-blog-master
 
 
 WORKDIR /app/shabao-base-master/
-RUN echo `pwd`
-RUN echo `ls`
-RUN mvn install
-WORKDIR /app/shabao-blog-master/ 
-RUN mvn package
-EXPOSE  8080  
-#指定容器的启动，可以指定参数
-#CMD ["java","-jar","target/shabao-blog-0.0.1.jar"]
-#容器启动时执行的命令
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/shabao-blog-0.0.1.jar"]
