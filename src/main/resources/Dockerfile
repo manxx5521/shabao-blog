@@ -27,3 +27,5 @@ RUN rm -rf shabao-blog-master
 
 
 WORKDIR /app/shabao-base-master/
+
+CMD ["/bin/bash"]
