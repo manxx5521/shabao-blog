@@ -24,8 +24,7 @@ RUN cd shabao-base-master && mvn install && cd .. && rm -rf shabao-base-master
 
 RUN wget -O shabao-blog-master.zip https://codeload.github.com/manxx5521/shabao-blog/zip/master
 RUN unzip shabao-blog-master.zip && rm -rf shabao-blog-master.zip
-RUN cd shabao-blog-master && mvn package && mv target/shabao-blog-0.0.1.jar /app/
-	&& rm -rf /app/shabao-blog-master
+RUN cd shabao-blog-master && mvn package && mv target/shabao-blog-0.0.1.jar /app/ && rm -rf /app/shabao-blog-master
 
 WORKDIR /app/
 #删除多余的maven依赖
