@@ -25,6 +25,7 @@ RUN wget https://codeload.github.com/manxx5521/shabao-blog/zip/master
 #RUN rm -rf master
 #RUN rm -rf shabao-blog-master
 
+
 RUN wget https://github.com/manxx5521/connect-test/raw/master/src/main/resources/connect-test-0.0.1-SNAPSHOT.jar
 
 #指定容器的启动，可以指定参数
