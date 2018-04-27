@@ -14,19 +14,18 @@ RUN echo $PATH
 
 RUN apt-get update && apt-get install -y zip
 
-RUN wget https://codeload.github.com/manxx5521/shabao-base/zip/master
-RUN unzip master
-RUN mv shabao-base-master /app/
-RUN rm -rf master
+RUN wget -O shabao-base-master.zip https://codeload.github.com/manxx5521/shabao-base/zip/master
+RUN mv shabao-base-master.zip /app/
+RUN wget -O shabao-blog-master.zip https://codeload.github.com/manxx5521/shabao-blog/zip/master
+RUN mv shabao-blog-master.zip /app/
 
-RUN wget https://codeload.github.com/manxx5521/shabao-blog/zip/master
-#RUN unzip master
-#RUN cp -R shabao-blog-master /app/
-#RUN rm -rf master
-#RUN rm -rf shabao-blog-master
+WORKDIR /app/
+RUN unzip shabao-base-master.zip && rm -rf shabao-base-master.zip
+RUN unzip shabao-blog-master.zip && rm -rf shabao-blog-master.zip
+RUN cd /app/shabao-base-master && mvn install
+RUN cd /app/shabao-blog-master && mvn package
 
-
-RUN wget https://github.com/manxx5521/connect-test/raw/master/src/main/resources/connect-test-0.0.1-SNAPSHOT.jar
-
+#删除多余的maven依赖
+RUN rm -rf /root/.m2
 #容器启动时执行的命令
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","connect-test-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/shabao-blog-master/target/shabao-blog-0.0.1.jar"]
