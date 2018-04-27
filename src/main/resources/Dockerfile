@@ -28,5 +28,5 @@ RUN wget https://codeload.github.com/manxx5521/shabao-blog/zip/master
 
 RUN wget https://github.com/manxx5521/connect-test/raw/master/src/main/resources/connect-test-0.0.1-SNAPSHOT.jar
 
-#指定容器的启动，可以指定参数
-#CMD ["java","-jar","connect-test-0.0.1-SNAPSHOT.jar"]
+#容器启动时执行的命令
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","connect-test-0.0.1-SNAPSHOT.jar"]
