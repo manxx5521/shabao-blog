@@ -20,12 +20,12 @@ RUN mv shabao-base-master /app/
 RUN rm -rf master
 
 RUN wget https://codeload.github.com/manxx5521/shabao-blog/zip/master
-RUN unzip master
-RUN cp -R shabao-blog-master /app/
-RUN rm -rf master
-RUN rm -rf shabao-blog-master
+#RUN unzip master
+#RUN cp -R shabao-blog-master /app/
+#RUN rm -rf master
+#RUN rm -rf shabao-blog-master
 
 
-WORKDIR /app/shabao-base-master/
+#WORKDIR /app/shabao-base-master/
 
 CMD ["/bin/bash"]
