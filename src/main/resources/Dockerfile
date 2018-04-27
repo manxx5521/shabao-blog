@@ -1,12 +1,15 @@
+#********************************
+# 博客系统构建：版本1.0.1
+#********************************
+
 FROM mykro/java8-jre:latest
 MAINTAINER xiaoshabao
 VOLUME /tmp
 
 #安装maven
 RUN wget http://apache-mirror.rbc.ru/pub/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
-RUN tar xzvf apache-maven-3.3.9-bin.tar.gz
-RUN cp -R apache-maven-3.3.9 /usr/local/bin
-RUN rm -rf apache-maven-3.3.9-bin.tar.gz
+RUN tar xzvf apache-maven-3.3.9-bin.tar.gz && rm -rf apache-maven-3.3.9-bin.tar.gz
+RUN cp -R apache-maven-3.3.9 /usr/local/bin && rm -rf apache-maven-3.3.9
 RUN export PATH=apache-maven-3.3.9/bin:$PATH
 RUN export PATH=/usr/local/bin/apache-maven-3.3.9/bin:$PATH
 RUN ln -s /usr/local/bin/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn
@@ -17,18 +20,18 @@ RUN apt-get update && apt-get install -y zip
 WORKDIR /app/
 RUN wget -O shabao-base-master.zip https://codeload.github.com/manxx5521/shabao-base/zip/master
 RUN unzip shabao-base-master.zip && rm -rf shabao-base-master.zip
-RUN cd shabao-base-master && mvn install && cd ..
+RUN cd shabao-base-master && mvn install && cd .. && rm -rf shabao-base-master
 
 RUN wget -O shabao-blog-master.zip https://codeload.github.com/manxx5521/shabao-blog/zip/master
 RUN unzip shabao-blog-master.zip && rm -rf shabao-blog-master.zip
+RUN cd shabao-blog-master && mvn package && mv target/shabao-blog-0.0.1.jar /app/
+	&& rm -rf /app/shabao-blog-master
 
-WORKDIR /app/shabao-blog-master/
-RUN mvn package
-
+WORKDIR /app/
 #删除多余的maven依赖
 RUN rm -rf /root/.m2
 #容器启动时执行的命令
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/shabao-blog-0.0.1.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","shabao-blog-0.0.1.jar"]
 
 #WORKDIR /app/
 #RUN wget https://github.com/manxx5521/connect-test/raw/master/src/main/resources/connect-test-0.0.1-SNAPSHOT.jar
