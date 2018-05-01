@@ -1,5 +1,5 @@
 <#include "/default/utils/ui.ftl"/>
-<@layout "写文章">
+<@layout "写文章" site_keywords site_description>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<i class="icon icon-pencil"></i> 写文章

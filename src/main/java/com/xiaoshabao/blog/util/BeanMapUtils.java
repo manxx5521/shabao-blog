@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import com.xiaoshabao.blog.dto.AccountProfile;
 import com.xiaoshabao.blog.dto.AuthMenu;
 import com.xiaoshabao.blog.dto.Channel;
+import com.xiaoshabao.blog.dto.Comment;
 import com.xiaoshabao.blog.dto.Favor;
 import com.xiaoshabao.blog.dto.Feeds;
 import com.xiaoshabao.blog.dto.Notify;
@@ -22,6 +23,7 @@ import com.xiaoshabao.blog.dto.Role;
 import com.xiaoshabao.blog.dto.User;
 import com.xiaoshabao.blog.entity.AuthMenuPO;
 import com.xiaoshabao.blog.entity.ChannelPO;
+import com.xiaoshabao.blog.entity.CommentPO;
 import com.xiaoshabao.blog.entity.FavorPO;
 import com.xiaoshabao.blog.entity.FeedsPO;
 import com.xiaoshabao.blog.entity.NotifyPO;
@@ -83,12 +85,11 @@ public class BeanMapUtils {
 		passport.setAuthMenus(menus);
 		return passport;
 	}
-/*
 	public static Comment copy(CommentPO po) {
 		Comment ret = new Comment();
 		BeanUtils.copyProperties(po, ret);
 		return ret;
-	}*/
+	}
 
 	public static Post copy(PostPO po, int level) {
 		Post d = new Post();
