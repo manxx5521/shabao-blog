@@ -32,6 +32,16 @@ public interface Consts {
 	
 	int ZERO = 0;
 	
+	/**
+	 * 文件路径接口
+	 */
+	interface FilePath{
+		/**根目录*/
+		String ROOT_PATH="site_root_path";
+		/**头像路径*/
+		String AVA_DIR="site_ava_dir";
+	}
+	
 	//--------------*************************************
 	
 	

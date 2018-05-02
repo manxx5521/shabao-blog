@@ -31,6 +31,10 @@ public class ShiroUtil {
 		}
 		return subject.getProfile();
 	}
+	
+	public static void putProfile(AccountProfile profile) {
+		SecurityUtils.getSubject().getSession(true).setAttribute("profile", profile);
+	}
 
 	public static AuthenticationToken createToken(String username, String password) {
 		return new UsernamePasswordToken(username,DigestUtils.md5Hex(password));

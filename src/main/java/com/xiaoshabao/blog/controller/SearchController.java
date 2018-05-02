@@ -33,12 +33,14 @@ public class SearchController extends BaseController {
 			if (StringUtils.isNotEmpty(kw)) {
 				Page<Post> page = postService.search(pageable, kw);
 				model.put("page", page);
+			}else{
+				return skin+Views.INDEX;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.put("kw", kw);
-		return "skin"+Views.BROWSE_SEARCH;
+		return skin+Views.BROWSE_SEARCH;
 	}
 	
 }

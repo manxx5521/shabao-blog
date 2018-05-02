@@ -53,7 +53,7 @@ public class ProfileController extends BaseController {
 			user.setName(name);
 			user.setSignature(signature);
 
-			SecurityUtils.getSubject().getSession(true).setAttribute("profile", userService.update(user));
+			ShiroUtil.putProfile(userService.update(user));
 
 			// put 最新信息
 			User view = userService.get(profile.getId());

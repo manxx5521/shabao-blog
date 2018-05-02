@@ -1,5 +1,5 @@
 <#include "/default/utils/ui.ftl"/>
-<@layout "修改用户信息">
+<@layout "修改用户信息" site_keywords site_description>
 
 <div class="panel panel-default stacked">
 	<div class="panel-heading">

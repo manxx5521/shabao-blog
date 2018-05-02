@@ -40,6 +40,13 @@ spring:
     password: 19911105man
     pool:
       max-active: 20
+  mail:
+    host: smtp.mtons.com
+    username: example@mtons.com
+    password: Example2018
+    port: 25
+    properties:
+      mail.smtp.auth: true
   
 #mybatis
 mybatis:

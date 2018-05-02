@@ -1,6 +1,6 @@
 <#include "/default/utils/ui.ftl"/>
 
-<@layout "搜索:" + kw>
+<@layout "搜索:" + kw  site_keywords site_description>
 
 <div class="row streams">
     <div class="col-xs-12 col-md-9 side-left">

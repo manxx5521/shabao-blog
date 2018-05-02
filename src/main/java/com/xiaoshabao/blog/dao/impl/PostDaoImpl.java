@@ -54,6 +54,7 @@ public class PostDaoImpl implements PostDaoCustom {
 		FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(em);
 
 		SearchFactory sf = fullTextSession.getSearchFactory();
+		
 		QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
 
 		org.apache.lucene.search.Query luceneQuery  = qb.keyword().onFields("title","summary","tags")
