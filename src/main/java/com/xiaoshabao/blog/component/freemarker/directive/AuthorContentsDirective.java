@@ -35,7 +35,7 @@ public class AuthorContentsDirective extends TemplateDirective {
 		Pageable pageable = PageRequest.of(pn - 1, 10);
 		Page<Post> result = postService.pagingByAuthorId(pageable, uid);
 
-		function.put(RESULTS, result).render();
+		function.put(RESULTS, result);
 	}
 
 }

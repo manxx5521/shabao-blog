@@ -1,6 +1,6 @@
 <#include "/default/utils/ui.ftl"/>
 
-<@layout "标签:" + kw>
+<@layout "标签:" + kw site_keywords site_description>
 
 <div class="row streams">
     <div class="col-xs-12 col-md-9 side-left">
@@ -56,7 +56,7 @@
             </div>
 
             <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-				<@pager request.requestURI, page, 5/>
+				<@pager request.requestURI!"", page, 5/>
             </div>
         </div>
     </div>

@@ -100,6 +100,7 @@ public class PostController extends BaseController {
 
 		model.put("groups", channelService.findAll(Consts.STATUS_NORMAL));
 		model.put("view", ret);
+		model.put("site_editor", "ueditor");
 		return skin+Views.ROUTE_POST_UPDATE;
 	}
 

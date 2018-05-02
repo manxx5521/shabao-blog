@@ -56,7 +56,7 @@
             </div>
 
             <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                <@pager request.requestURI, page, 5/>
+                <@pager request.requestURI!"", page, 5/>
             </div>
         </div>
     </div>
