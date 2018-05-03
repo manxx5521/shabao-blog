@@ -37,7 +37,7 @@ define(function(require, exports, module) {
                 block_formats: 'Paragraph=p;标题1=h4;标题2=h5;标题3=h6;Preformatted=pre',
 
                 content_css: [
-                    window.app.base + '/dist/vendors/bootstrap/css/bootstrap.min.css',
+                    window.app.base + '/static/dist/vendors/bootstrap/css/bootstrap.min.css',
                     window.app.base + '/static/default/css/editor.css',
                 ]
                 //参考网站 https://www.tinymce.com/

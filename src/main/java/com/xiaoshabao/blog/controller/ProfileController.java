@@ -3,7 +3,6 @@ package com.xiaoshabao.blog.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
