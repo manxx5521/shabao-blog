@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.xiaoshabao.base.component.SysConfig;
+import com.xiaoshabao.base.component.sysConfig.SysConfig;
 import com.xiaoshabao.base.controller.BaseController;
 import com.xiaoshabao.blog.component.shiro.ShiroUtil;
 import com.xiaoshabao.blog.dto.AccountProfile;

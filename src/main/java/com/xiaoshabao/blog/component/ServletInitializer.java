@@ -8,7 +8,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.ServletContextAware;
 
-import com.xiaoshabao.base.component.SysConfig;
+import com.xiaoshabao.base.component.sysConfig.SysConfig;
 import com.xiaoshabao.blog.lang.Consts;
 import com.xiaoshabao.blog.service.ChannelService;
 
