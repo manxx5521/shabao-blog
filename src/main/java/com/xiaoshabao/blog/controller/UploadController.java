@@ -1,6 +1,12 @@
 package com.xiaoshabao.blog.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -10,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xiaoshabao.base.component.oss.OSSFactory;
 import com.xiaoshabao.base.controller.BaseController;
 import com.xiaoshabao.blog.util.FileKit;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * Ueditor 文件上传
@@ -23,6 +26,10 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/post")
 public class UploadController extends BaseController {
+	
+	@Autowired
+	private OSSFactory ossFactory;
+	
     private static HashMap<String, String> errorInfo = new HashMap<>();
 
     @Value("${site.store.size:2}")
@@ -66,7 +73,8 @@ public class UploadController extends BaseController {
 
         // 保存图片
         try {
-            String path = fileRepoFactory.select().storeScale(file, appContext.getThumbsDir(), size);
+//            String path = fileRepoFactory.select().storeScale(file, appContext.getThumbsDir(), size);
+        	String path=ossFactory.build().upload(file);
             result.ok(errorInfo.get("SUCCESS"));
             result.setName(fileName);
             result.setType("."+FilenameUtils.getExtension(fileName));
