@@ -9,7 +9,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,7 +51,7 @@ public class UploadController extends BaseController {
     public UploadResult upload(@RequestParam(value = "file", required = false) MultipartFile file,
                                HttpServletRequest request) throws IOException {
         UploadResult result = new UploadResult();
-        int size = ServletRequestUtils.getIntParameter(request, "size", 800);
+//        int size = ServletRequestUtils.getIntParameter(request, "size", 800);
 
         // 检查空
         if (null == file || file.isEmpty()) {
