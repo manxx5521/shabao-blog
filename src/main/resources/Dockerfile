@@ -7,7 +7,7 @@
 # 进入容器 docker exec -it blog bash
 #********************************
 FROM mykro/java8-jre:latest
-MAINTAINER xiaoshabao
+MAINTAINER manxx
 VOLUME /tmp
 
 #安装maven
@@ -20,7 +20,6 @@ RUN ln -s /usr/local/bin/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn
 RUN echo $PATH
 
 RUN apt-get update && apt-get install -y zip
-
 WORKDIR /app/
 RUN wget -O shabao-base-master.zip https://codeload.github.com/manxx5521/shabao-base/zip/master
 RUN unzip shabao-base-master.zip && rm -rf shabao-base-master.zip
