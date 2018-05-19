@@ -1,5 +1,5 @@
 #********************************
-# 博客系统构建：版本1.0.1
+# 博客系统构建：版本1.0.2
 # 下载 docker pull registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
 # 启动 docker run -p 80:8080 --name blog -v /usr/docker/blog:/app/data -d registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
 # 重启和停止 docker restart blog 和 docker stop blog

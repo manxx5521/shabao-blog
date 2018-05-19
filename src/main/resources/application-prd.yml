@@ -17,4 +17,4 @@ logging:
   level:
     root: INFO
     com.xiaoshabao.blog.mapper: DEBUG
-  path: /app/data/logs/log.log
+  path: /app/data/logs
