@@ -1,0 +1,20 @@
+spring:
+  profiles: prd
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.91.220.42:3306/shabao_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: master
+    password: 19911105man
+  redis:
+    database: 3
+    port: 6379
+    host: 47.91.220.42
+    password: 19911105man
+    pool:
+      max-active: 20
+
+logging:
+  level:
+    root: INFO
+    com.xiaoshabao.blog.mapper: DEBUG
+  path: /app/logs/log.log

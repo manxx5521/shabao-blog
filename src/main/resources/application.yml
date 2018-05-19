@@ -4,11 +4,8 @@ server:
 spring:
   application:
     name: shabao-blog
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.91.220.42:3306/db_mblog?useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: master
-    password: 19911105man
+  profiles:
+    active: dev
     
   #jpa配置
   jpa:
@@ -33,13 +30,6 @@ spring:
   cache:
 #    cache-names: sysConfig
 #    time-to-live: 10000  	
-  redis:
-    database: 2
-    port: 6379
-    host: 47.91.220.42
-    password: 19911105man
-    pool:
-      max-active: 20
   mail:
     host: smtp.mtons.com
     username: example@mtons.com
@@ -57,9 +47,3 @@ mybatis:
   #开启驼峰命名规范
   configuration:
     mapUnderscoreToCamelCase: true
-
-logging:
-  level:
-    root: INFO
-    com.xiaoshabao.blog.mapper: DEBUG
-#  path: C:/logs/log.log
