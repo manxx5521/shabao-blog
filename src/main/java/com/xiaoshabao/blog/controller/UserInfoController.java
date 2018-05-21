@@ -1,7 +1,6 @@
 package com.xiaoshabao.blog.controller;
 
-import java.io.File;
-
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.xiaoshabao.base.component.oss.OSSFactory;
 import com.xiaoshabao.base.component.sysConfig.SysConfig;
 import com.xiaoshabao.base.controller.BaseController;
 import com.xiaoshabao.blog.component.shiro.ShiroUtil;
@@ -18,7 +18,6 @@ import com.xiaoshabao.blog.dto.Data;
 import com.xiaoshabao.blog.lang.Consts;
 import com.xiaoshabao.blog.service.UserService;
 import com.xiaoshabao.blog.util.FilePathUtils;
-import com.xiaoshabao.blog.util.ImageUtils;
 
 /**
  * 用户信息
@@ -30,6 +29,8 @@ public class UserInfoController extends BaseController {
 	private UserService userService;
 	@Autowired
 	private SysConfig sysConfig;
+	@Autowired
+	private OSSFactory ossFactory;
 
 	@RequestMapping(value = "/avatar", method = RequestMethod.GET)
 	public String avatarView(@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
@@ -47,6 +48,13 @@ public class UserInfoController extends BaseController {
 		}
 		
 		if (width != null && height != null) {
+
+			Long fileId=Long.valueOf(FilenameUtils.getBaseName(path));
+			String yPath=ossFactory.build().getRealFilePath(fileId);
+			String url=ossFactory.build(Consts.FilePath.AVA_DIR, "yyyy").upload(yPath,x.intValue(), y.intValue(), width.intValue(), width.intValue(), 100);
+			AccountProfile user = userService.updateAvatar(profile.getId(), url);
+			ShiroUtil.putProfile(user);
+			/*
 			String root = sysConfig.getString(Consts.FilePath.ROOT_PATH);
 			File temp = new File(root + path);
 			File scale = null;
@@ -78,7 +86,7 @@ public class UserInfoController extends BaseController {
 				if (scale != null) {
 					scale.delete();
 				}
-			}
+			}*/
 		}
 		return "redirect:/user/profile";
 	}

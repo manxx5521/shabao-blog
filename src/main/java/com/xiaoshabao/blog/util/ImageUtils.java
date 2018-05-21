@@ -91,7 +91,7 @@ public class ImageUtils {
 
         log.debug("origin with/height " + w + "/" + h);
 
-        int size = (int) Math.max(w, h);
+        int size = Math.max(w, h);
         int tow = w;
         int toh = h;
 
