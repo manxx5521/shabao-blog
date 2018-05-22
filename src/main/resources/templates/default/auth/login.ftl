@@ -1,5 +1,5 @@
 <#include "/default/utils/ui.ftl"/>
-<@layout  site_name site_keywords site_description>
+<@layout "登录" site_keywords site_description>
 
 <div class="row">
     <div class="col-md-4 col-md-offset-4 floating-box">
