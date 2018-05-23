@@ -19,6 +19,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +30,9 @@ import com.xiaoshabao.blog.dto.AccountProfile;
 import com.xiaoshabao.blog.dto.Data;
 import com.xiaoshabao.blog.dto.Post;
 import com.xiaoshabao.blog.dto.User;
+import com.xiaoshabao.blog.entity.TagPO;
 import com.xiaoshabao.blog.service.PostService;
+import com.xiaoshabao.blog.service.TagService;
 import com.xiaoshabao.blog.service.UserService;
 
 /**
@@ -43,6 +46,8 @@ import com.xiaoshabao.blog.service.UserService;
 public class SidebarController extends BaseController {
 	@Autowired
 	private PostService postService;
+	@Autowired
+	private TagService tagService;
 
 	@Autowired
 	private UserService userService;
@@ -76,6 +81,12 @@ public class SidebarController extends BaseController {
 			}
 		}
 		return data;
+	}
+	
+	@GetMapping("/hottags")
+	public @ResponseBody List<TagPO> hotTags() {
+		List<TagPO> rets = tagService.topTags(12);
+		return rets;
 	}
 
 	@RequestMapping("/latests")

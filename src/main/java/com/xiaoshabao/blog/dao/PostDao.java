@@ -1,12 +1,3 @@
-/*
-+--------------------------------------------------------------------------
-|   Mblog [#RELEASE_VERSION#]
-|   ========================================
-|   Copyright (c) 2014, 2015 mtons. All Rights Reserved
-|   http://www.mtons.com
-|
-+---------------------------------------------------------------------------
-*/
 package com.xiaoshabao.blog.dao;
 
 import org.springframework.data.domain.Page;
@@ -21,8 +12,6 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author langhsu
- *
  */
 public interface PostDao extends JpaRepository<PostPO, Long>, JpaSpecificationExecutor<PostPO>, PostDaoCustom {
 	/**
