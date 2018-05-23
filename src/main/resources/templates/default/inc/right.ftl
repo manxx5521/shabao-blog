@@ -56,7 +56,7 @@ var li_template = '<li>{0}. <a href="${base}/view/{1}">{2}</a></li>';
 
 var hotUser_li_template = '<li><a href="{1}"><img src="${base}{0}" class="avatar avatar-small"/></a></li>'
 
-var tag_li_template	= '<li class="mb6"><a href="$base/tag/{0}/" class="tag" title="有{1}篇文章">{2}</a></li>';
+var tag_li_template	= '<li class="mb6"><a href="${base}/tag/{0}/" class="tag" title="有{1}篇文章">{2}</a></li>';
 
 
 seajs.use('sidebox', function (sidebox) {
