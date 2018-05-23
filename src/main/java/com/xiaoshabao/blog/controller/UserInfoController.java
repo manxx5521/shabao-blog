@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xiaoshabao.base.component.oss.OSSFactory;
-import com.xiaoshabao.base.component.sysConfig.SysConfig;
 import com.xiaoshabao.base.controller.BaseController;
 import com.xiaoshabao.blog.component.shiro.ShiroUtil;
 import com.xiaoshabao.blog.dto.AccountProfile;
 import com.xiaoshabao.blog.dto.Data;
 import com.xiaoshabao.blog.lang.Consts;
 import com.xiaoshabao.blog.service.UserService;
-import com.xiaoshabao.blog.util.FilePathUtils;
 
 /**
  * 用户信息
@@ -27,8 +25,6 @@ import com.xiaoshabao.blog.util.FilePathUtils;
 public class UserInfoController extends BaseController {
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private SysConfig sysConfig;
 	@Autowired
 	private OSSFactory ossFactory;
 
@@ -90,11 +86,11 @@ public class UserInfoController extends BaseController {
 		}
 		return "redirect:/user/profile";
 	}
-	
+	/*
 	public String getAvaPath(long uid, int size) {
 		String base = FilePathUtils.getAvatar(uid);
 		return String.format("/%s_%d.jpg", base, size);
-	}
+	}*/
 	
 	
 	@RequestMapping(value = "/password", method = RequestMethod.GET)
