@@ -1,13 +1,3 @@
-/*
-+--------------------------------------------------------------------------
-|   Mblog [#RELEASE_VERSION#]
-|   ========================================
-|   Copyright (c) 2014, 2015 mtons. All Rights Reserved
-|   http://www.mtons.com
-|
-+---------------------------------------------------------------------------
-*/
-
 /**
  * 侧边栏
  */
@@ -36,7 +26,7 @@ define(function(require, exports, module) {
 
 			if (opts.tagsUrl) {
 				J.ajax( {
-					url: opts.hotUrl,
+					url: opts.tagsUrl,
 					data: {size : opts.size},
 					cache : true,
 					success: function (ret) {

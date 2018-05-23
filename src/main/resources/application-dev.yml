@@ -12,6 +12,11 @@ spring:
     password: 19911105man
     pool:
       max-active: 20
+  devtools:
+    restart:
+      enabled: true  #是否开启
+      additional-paths: src/main/java #需要重启的目录
+      exclude: static/**,public/** #不需要重启的目录
 
 logging:
   level:
