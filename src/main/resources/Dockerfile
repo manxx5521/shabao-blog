@@ -11,12 +11,12 @@ MAINTAINER manxx
 VOLUME /tmp
 
 #安装maven
-RUN wget http://apache-mirror.rbc.ru/pub/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
-RUN tar xzvf apache-maven-3.3.9-bin.tar.gz && rm -rf apache-maven-3.3.9-bin.tar.gz
-RUN cp -R apache-maven-3.3.9 /usr/local/bin && rm -rf apache-maven-3.3.9
-RUN export PATH=apache-maven-3.3.9/bin:$PATH
-RUN export PATH=/usr/local/bin/apache-maven-3.3.9/bin:$PATH
-RUN ln -s /usr/local/bin/apache-maven-3.3.9/bin/mvn /usr/local/bin/mvn
+RUN wget http://apache-mirror.rbc.ru/pub/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+RUN tar xzvf apache-maven-3.5.3-bin.tar.gz && rm -rf apache-maven-3.5.3-bin.tar.gz
+RUN cp -R apache-maven-3.5.3 /usr/local/bin && rm -rf apache-maven-3.5.3
+RUN export PATH=apache-maven-3.5.3/bin:$PATH
+RUN export PATH=/usr/local/bin/apache-maven-3.5.3/bin:$PATH
+RUN ln -s /usr/local/bin/apache-maven-3.5.3/bin/mvn /usr/local/bin/mvn
 RUN echo $PATH
 
 RUN apt-get update && apt-get install -y zip
@@ -32,6 +32,6 @@ RUN cd /app/ && mkdir data && cd data && mkdir upload && mkdir logs
  
 WORKDIR /app/
 #删除多余的maven依赖
-RUN rm -rf /root/.m2
+RUN rm -rf /root/.m2 && rm -rf /usr/local/bin/apache-maven-3.5.3 && rm -rf /var/lib/apt/lists/*
 #容器启动时执行的命令
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","shabao-blog-0.0.1.jar","--spring.profiles.active=prd"]
