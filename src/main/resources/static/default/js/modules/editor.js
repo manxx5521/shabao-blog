@@ -20,6 +20,7 @@ define(function(require, exports, module) {
                 selector: "#content",
                 theme: 'modern',
                 upload_image_url: window.app.base + "/post/upload", //配置的上传图片的路由
+                relative_urls : false,//不使用相对目录，解决返回path默认加上开头../的问题
                 height: 400,
                 plugins: [
                     'advlist autolink autosave lists link image print anchor codesample',
