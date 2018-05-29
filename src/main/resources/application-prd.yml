@@ -5,6 +5,9 @@ spring:
     url: jdbc:mysql://47.91.220.42:3306/shabao_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: master
     password: 19911105man
+  jpa:
+    properties:
+      hibernate.search.default.indexBase: /app/data/indexs
   redis:
     database: 3
     port: 6379
