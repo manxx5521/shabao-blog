@@ -24,6 +24,13 @@
 			<artifactId>shabao-base</artifactId>
 			<version>0.0.1</version>
 		</dependency>
+		
+		<!-- 引入测试包 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- Redis支持 -->
 		<dependency>
