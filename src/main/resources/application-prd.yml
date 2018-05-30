@@ -1,8 +1,8 @@
 server:
   ssl:
-    key-store: classpath:full_chain.pem
-    key-store-password: MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgHctEMcJhS7OAwldTmsJevnNcpvhN0mYwDj666+Ph4WOgCgYIKoZIzj0DAQehRANCAASLcU0rXujLQ8CKj41bRlI/+juDe7m/g9Iik1bSntHB1gBoOxC+uTQplUOrZUYZt+RILsf/0UpoA4rhagWr/t4k
-    keyStoreType: ECC
+    key-store: classpath:xiaoshabao.com.jks
+    key-store-password: shabaotest
+    keyStoreType: JKS
     
 spring:
   profiles: prd
