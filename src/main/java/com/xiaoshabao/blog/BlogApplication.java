@@ -9,9 +9,12 @@ import com.xiaoshabao.base.BaseApplication;
 //缓存对象必须实现Serializable
 @EnableCaching
 @SpringBootApplication
-public class BlogApplication extends BaseApplication{
-	
-	public static void main(String[] args) { 
+public class BlogApplication extends BaseApplication {
+
+	public static void main(String[] args) {
 		SpringApplication.run(BlogApplication.class, args);
 	}
+
+	
+
 }
