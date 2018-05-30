@@ -1,9 +1,6 @@
 package com.xiaoshabao.blog;
 
-import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,7 +31,8 @@ public class BlogApplication extends BaseApplication {
 	@Bean
 	public ServletWebServerFactory servletContainer() {
 		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
-			@Override
+			//此处的注释放开可以配合下边的注释，完成重定向，将http转向https
+			/*@Override
 			protected void postProcessContext(Context context) {
 				SecurityConstraint securityConstraint = new SecurityConstraint();
 				securityConstraint.setUserConstraint("CONFIDENTIAL");
@@ -43,6 +41,7 @@ public class BlogApplication extends BaseApplication {
 				securityConstraint.addCollection(collection);
 				context.addConstraint(securityConstraint);
 			}
+			*/
 		};
 
 		// 添加http
@@ -54,9 +53,10 @@ public class BlogApplication extends BaseApplication {
 	private Connector createStandardConnector() {
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
 		connector.setPort(httpPort);
-		connector.setScheme("http");
-		connector.setSecure(false);
-		connector.setRedirectPort(sslPort);
+		//此处的注释放开可以配合上边的注释，完成重定向，将http转向https
+//		connector.setScheme("http");
+//		connector.setSecure(false);
+//		connector.setRedirectPort(sslPort);
 		return connector;
 	}
 
