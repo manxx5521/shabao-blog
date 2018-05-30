@@ -2,7 +2,7 @@ server:
   ssl:
     key-store: classpath:xiaoshabao.com.jks
     key-store-password: shabaotest
-    keyStoreType: JKS
+    keyStoreType: PKCS12
     
 spring:
   profiles: prd
