@@ -1,8 +1,8 @@
 server:
   ssl:
-    key-store: classpath:xiaoshabao.com.jks
-    key-store-password: shabaotest
-    keyStoreType: JKS
+    key-store: classpath:214734375330075.pfx
+    key-store-password: 214734375330075
+    #keyStoreType: JKS
   
 spring:
   application:
