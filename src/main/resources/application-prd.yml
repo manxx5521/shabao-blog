@@ -3,7 +3,7 @@ server:
   tomcat:
     accesslog.enabled: true
     accesslog.pattern: common
-    basedir: /app/data/logs
+    basedir: /app/data
 http:
   port: 80
   
