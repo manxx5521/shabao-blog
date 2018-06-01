@@ -1,5 +1,9 @@
 server:
   port: 8443
+  tomcat:
+    accesslog.enabled: true
+    accesslog.pattern: common
+    basedir: E:/test/cun/logs
 http:
   port: 8080
   

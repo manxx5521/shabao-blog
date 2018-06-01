@@ -1,5 +1,9 @@
 server:
   port: 443
+  tomcat:
+    accesslog.enabled: true
+    accesslog.pattern: common
+    basedir: /app/data/logs
 http:
   port: 80
   
