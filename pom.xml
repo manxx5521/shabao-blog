@@ -24,14 +24,21 @@
 			<artifactId>shabao-base</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-		
+
 		<!-- 引入测试包 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- 热部署 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>test</scope>
+			<!-- optional=true, 依赖不会传递, 该项目依赖devtools; 之后依赖boot项目的项目如果想要使用devtools, 
+				需要重新引入 <optional>true</optional> -->
+		</dependency>
 		<!-- Redis支持 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -43,7 +50,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
-		
+
 		<!-- jpa依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -72,16 +79,16 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
-		<!-- 全文搜索 begin-->
-		<!--hibernate search orm-->
+
+		<!-- 全文搜索 begin -->
+		<!--hibernate search orm -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-orm</artifactId>
 			<version>5.9.1.Final</version>
 		</dependency>
-		
-		<!--hibernate search dependency-->
+
+		<!--hibernate search dependency -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -96,7 +103,7 @@
 			<artifactId>lucene-highlighter</artifactId>
 			<version>5.5.4</version>
 		</dependency>
-		<!-- 全文搜索 end-->
+		<!-- 全文搜索 end -->
 		<!-- html解析 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -113,6 +120,7 @@
 
 	<build>
 		<plugins>
+			<!-- 编译插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -126,6 +134,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<!-- 设置jar包默认运行时启动的类 -->
 					<maimClass>com.xiaoshabao.blog.BlogApplication</maimClass>
 					<fork>true</fork>
 				</configuration>
