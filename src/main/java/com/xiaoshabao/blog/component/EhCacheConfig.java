@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 /**
- * Created by langhsu on 2017/11/13.
+ * EhCache配置
  */
 @Configuration
 @EnableCaching
