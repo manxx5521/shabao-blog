@@ -11,12 +11,13 @@ MAINTAINER manxx
 VOLUME /tmp
 
 #安装maven
-RUN wget http://apache-mirror.rbc.ru/pub/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
-RUN tar xzvf apache-maven-3.5.3-bin.tar.gz && rm -rf apache-maven-3.5.3-bin.tar.gz
-RUN cp -R apache-maven-3.5.3 /usr/local/bin && rm -rf apache-maven-3.5.3
-RUN export PATH=apache-maven-3.5.3/bin:$PATH
-RUN export PATH=/usr/local/bin/apache-maven-3.5.3/bin:$PATH
-RUN ln -s /usr/local/bin/apache-maven-3.5.3/bin/mvn /usr/local/bin/mvn
+ARG MAVEN_VERSION=3.5.4
+RUN wget -O apache-maven.tar.gz https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+RUN tar xzvf apache-maven.tar.gz && rm -rf apache-maven.tar.gz
+RUN cp -R apache-maven-${MAVEN_VERSION} /usr/local/bin && rm -rf apache-maven-${MAVEN_VERSION}
+RUN export PATH=apache-maven-${MAVEN_VERSION}/bin:$PATH
+RUN export PATH=/usr/local/bin/apache-maven-${MAVEN_VERSION}/bin:$PATH
+RUN ln -s /usr/local/bin/apache-maven-${MAVEN_VERSION}/bin/mvn /usr/local/bin/mvn
 RUN echo $PATH
 
 RUN apt-get update && apt-get install -y zip
