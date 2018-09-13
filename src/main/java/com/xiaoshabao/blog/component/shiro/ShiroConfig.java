@@ -1,7 +1,9 @@
 package com.xiaoshabao.blog.component.shiro;
-
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.servlet.Filter;
 
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -22,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.xiaoshabao.blog.component.shiro.authc.AccountSubjectFactory;
+import com.xiaoshabao.blog.component.shiro.filter.AuthenticatedFilter;
 import com.xiaoshabao.blog.component.shiro.realm.AccountRealm;
 
 /**
@@ -131,6 +134,13 @@ public class ShiroConfig {
         shiroFilter.setUnauthorizedUrl("/error/reject.html");
 
         /**
+         * 覆盖默认的user拦截器(默认拦截器解决不了ajax请求 session超时的问题,若有更好的办法请及时反馈作者)
+         */
+        HashMap<String, Filter> myFilters = new HashMap<>();
+        myFilters.put("authc", new AuthenticatedFilter());
+        shiroFilter.setFilters(myFilters);
+
+        /**
          * 配置shiro拦截器链
          *
          * anon  不需要认证
@@ -144,36 +154,12 @@ public class ShiroConfig {
          */
         Map<String, String> hashMap = new LinkedHashMap<>();
         hashMap.put("/login", "anon");
-        hashMap.put("/user*", "user");
-        hashMap.put("/user/**", "user");
-        hashMap.put("/post/**", "user");
+        hashMap.put("/user*", "authc");
+        hashMap.put("/user/**", "authc");
+        hashMap.put("/post/**", "authc");
 
         hashMap.put("/admin", "authc,perms[admin]");
-        hashMap.put("/admin/", "authc,perms[admin]");
-        hashMap.put("/admin/index", "authc,perms[admin]");
-        hashMap.put("/admin/posts/**", "authc,perms[posts:view]");
-
-        hashMap.put("/admin/posts/update**", "authc,perms[posts:edit]");
-        hashMap.put("/admin/posts/delete**", "authc,perms[posts:edit]");
-
-        hashMap.put("/admin/comments/**", "authc,perms[comments:view]");
-        hashMap.put("/admin/comments/delete**", "authc,perms[comments:edit]");
-
-        hashMap.put("/admin/users/**", "authc,perms[users:view]");
-        hashMap.put("/admin/users/update**", "authc,perms[users:edit]");
-        hashMap.put("/admin/users/pwd**", "authc,perms[users:edit]");
-
-        hashMap.put("/admin/config/**", "authc,perms[config:view]");
-        hashMap.put("/admin/config/updtate**", "authc,perms[config:edit]");
-
-        hashMap.put("/admin/roles/list", "authc,perms[roles:view]");
-        hashMap.put("/admin/roles/save", "authc,perms[roles:edit]");
-        hashMap.put("/admin/roles/view", "authc,perms[roles:edit]");
-
-        hashMap.put("/admin/authMenus/list", "authc,perms[authMenus:view]");
-        hashMap.put("/admin/authMenus/save", "authc,perms[authMenus:edit]");
-        hashMap.put("/admin/authMenus/view", "authc,perms[authMenus:edit]");
-
+        hashMap.put("/admin/**", "authc,perms[admin]");
         shiroFilter.setFilterChainDefinitionMap(hashMap);
         return shiroFilter;
     }
