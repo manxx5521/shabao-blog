@@ -10,15 +10,14 @@
                 <li class="menu-item"><a href="${base}/faqs">常见问题</a></li>
                 <li>
                     <script>
-                    /*百度统计
+                    /*百度统计*/
                         var _hmt = _hmt || [];
-                        (function() {
-                            var hm = document.createElement("script");
-                            hm.src = "//hm.baidu.com/hm.js?a029e6c6dddf427f4cbfb2b00d7d5311";
-                            var s = document.getElementsByTagName("script")[0];
-                            s.parentNode.insertBefore(hm, s);
-                        })();
-                        */
+						(function() {
+  							var hm = document.createElement("script");
+  							hm.src = "https://hm.baidu.com/hm.js?c5da8ba6e1bdc099ba3f1b09ff5a29d5";
+  							var s = document.getElementsByTagName("script")[0]; 
+  							s.parentNode.insertBefore(hm, s);
+						})();		
                     </script>
                 </li>
             </ul>
