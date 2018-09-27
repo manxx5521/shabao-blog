@@ -9,6 +9,8 @@
 FROM mykro/java8-jre:latest
 MAINTAINER manxx
 VOLUME /tmp
+#设置时区
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
 #安装maven
 ARG MAVEN_VERSION=3.5.4
