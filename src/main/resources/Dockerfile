@@ -24,16 +24,16 @@ RUN echo $PATH && echo '完成安装maven'
 
 RUN apt-get update && apt-get install -y zip
 WORKDIR /app/ && echo '开始安装工程...'
-RUN wget -q -O shabao-base-parent.zip https://codeload.github.com/manxx5521/shabao-base-parent/zip/master && echo 'shabao-base-parent 下载完成'
-RUN unzip -q shabao-base-parent.zip && rm -rf shabao-base-parent.zip && echo 'shabao-base-parent 解压完成'
+RUN wget -q -O shabao-base-parent.zip https://codeload.github.com/manxx5521/shabao-base-parent/zip/master
+RUN unzip -q shabao-base-parent.zip && rm -rf shabao-base-parent.zip && ls
 RUN cd shabao-base-parent && mvn install && cd .. && rm -rf shabao-base-parent && echo 'shabao-base-parent 安装完成'
 
-RUN wget -q -O shabao-base-master.zip https://codeload.github.com/manxx5521/shabao-base/zip/master && echo 'shabao-base 下载完成'
-RUN unzip -q shabao-base-master.zip && rm -rf shabao-base-master.zip && echo 'shabao-base 解压完成'
+RUN wget -q -O shabao-base-master.zip https://codeload.github.com/manxx5521/shabao-base/zip/master
+RUN unzip -q shabao-base-master.zip && rm -rf shabao-base-master.zip
 RUN cd shabao-base-master && mvn install && cd .. && rm -rf shabao-base-master && echo 'shabao-base 安装完成'
 
-RUN wget -q -O shabao-blog-master.zip https://codeload.github.com/manxx5521/shabao-blog/zip/master && echo 'shabao-blog 下载完成'
-RUN unzip -q shabao-blog-master.zip && rm -rf shabao-blog-master.zip && echo 'shabao-blog 解压完成'
+RUN wget -q -O shabao-blog-master.zip https://codeload.github.com/manxx5521/shabao-blog/zip/master
+RUN unzip -q shabao-blog-master.zip && rm -rf shabao-blog-master.zip
 RUN cd shabao-blog-master && mvn package && mv target/shabao-blog-0.0.1.jar /app/ && rm -rf /app/shabao-blog-master
 RUN cd /app/ && mkdir data && cd data && mkdir upload && mkdir logs && mkdir indexs && echo 'shabao-blog 安装完成'
  
