@@ -23,7 +23,7 @@ RUN ln -s /usr/local/bin/apache-maven-${MAVEN_VERSION}/bin/mvn /usr/local/bin/mv
 RUN echo $PATH && echo '完成安装maven'
 
 RUN apt-get update && apt-get install -y zip
-WORKDIR /app/ #开始安装项目工程....
+WORKDIR /app/
 RUN wget -q -O shabao-base-parent-master.zip https://codeload.github.com/manxx5521/shabao-base-parent/zip/master
 RUN unzip -q shabao-base-parent-master.zip && rm -rf shabao-base-parent-master.zip
 RUN cd shabao-base-parent-master && mvn install && cd .. && rm -rf shabao-base-parent-master && echo 'shabao-base-parent 安装完成'
