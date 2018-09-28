@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.xiaoshabao</groupId>
 	<artifactId>shabao-blog</artifactId>
-	<version>0.0.1</version>
+	<!-- <version>0.0.1</version> -->
 
 	<packaging>jar</packaging>
 	<properties>
@@ -12,17 +12,16 @@
 	</properties>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.5.RELEASE</version>
+		<groupId>com.xiaoshabao.base</groupId>
+		<artifactId>shabao-base-parent</artifactId>
+		<version>0.0.1</version>
 	</parent>
 
 	<dependencies>
 		<!-- 基础包 -->
 		<dependency>
-			<groupId>com.xiaoshabao</groupId>
+			<groupId>com.xiaoshabao.base</groupId>
 			<artifactId>shabao-base</artifactId>
-			<version>0.0.1</version>
 		</dependency>
 
 		<!-- 引入测试包 -->

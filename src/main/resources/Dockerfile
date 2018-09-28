@@ -24,6 +24,10 @@ RUN echo $PATH
 
 RUN apt-get update && apt-get install -y zip
 WORKDIR /app/
+RUN wget -O shabao-base-parent.zip https://codeload.github.com/manxx5521/shabao-base-parent/zip/master
+RUN unzip shabao-base-parent.zip && rm -rf shabao-base-parent.zip
+RUN cd shabao-base-parent && mvn install && cd .. && rm -rf shabao-base-parent
+
 RUN wget -O shabao-base-master.zip https://codeload.github.com/manxx5521/shabao-base/zip/master
 RUN unzip shabao-base-master.zip && rm -rf shabao-base-master.zip
 RUN cd shabao-base-master && mvn install && cd .. && rm -rf shabao-base-master
