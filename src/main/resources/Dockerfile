@@ -12,8 +12,8 @@ VOLUME /tmp
 #设置时区
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
-#安装maven
-ARG MAVEN_VERSION=3.5.4 && echo '开始安装maven...'
+RUN echo '开始安装maven...'
+ARG MAVEN_VERSION=3.5.4
 RUN wget -q -O apache-maven.tar.gz https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 RUN tar -xzf apache-maven.tar.gz && rm -rf apache-maven.tar.gz
 RUN cp -R apache-maven-${MAVEN_VERSION} /usr/local/bin && rm -rf apache-maven-${MAVEN_VERSION}
