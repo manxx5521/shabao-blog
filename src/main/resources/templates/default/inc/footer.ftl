@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-col footer-col-logo hidden-xs hidden-sm">
-            <img src="${base}/static/default/images/logo.png" alt="Mblog"/>
+            <img src="${base}/static/default/images/logo.png" alt="blog"/>
         </div>
         <div class="footer-col footer-col-copy">
             <ul class="footer-nav hidden-xs">
@@ -27,7 +27,7 @@
         </div>
         <div class="footer-col footer-col-sns hidden-xs hidden-sm">
             <div class="footer-sns">
-                <span>Powered By <a href="http://www.xiaoshabao.com" target="_blank">ShaBao</a></span>
+                <span>Powered By <a href="http://${site_domain}" target="_blank">ShaBao</a></span>
             </div>
         </div>
     </div>

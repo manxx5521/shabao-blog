@@ -21,7 +21,7 @@
                 margin-left: -20px;
             }
             body.texture {
-                background: url("/assets/images/bg.jpg");
+                background: url("${base}/static/error/images/bg.jpg");
             }
             h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                 font-family: 'Open Sans',sans-serif;
