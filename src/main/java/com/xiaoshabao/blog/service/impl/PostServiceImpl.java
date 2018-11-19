@@ -24,6 +24,10 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -37,6 +41,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.xiaoshabao.base.component.SpringContextHolder;
+import com.xiaoshabao.base.component.oss.OSSFactory;
+import com.xiaoshabao.base.component.sysConfig.SysConfig;
+import com.xiaoshabao.base.component.sysConfig.SysEnum;
 import com.xiaoshabao.blog.dao.PostAttributeDao;
 import com.xiaoshabao.blog.dao.PostDao;
 import com.xiaoshabao.blog.dto.Channel;
@@ -56,7 +63,6 @@ import com.xiaoshabao.blog.util.BeanMapUtils;
 import com.xiaoshabao.blog.util.PreviewTextUtils;
 
 /**
- * @author langhsu
  *
  */
 @Service
@@ -65,6 +71,10 @@ import com.xiaoshabao.blog.util.PreviewTextUtils;
 public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostDao postDao;
+	@Autowired
+	private SysConfig config;
+	@Autowired
+	private OSSFactory ossFactory;
 	
 	@Autowired
 	private UserService userService;
@@ -265,6 +275,9 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public long post(Post post) {
+		//处理文章内容
+		post.setContent(conversionContent(post.getContent()));
+		
 		PostPO po = new PostPO();
 
 		BeanUtils.copyProperties(post, po);
@@ -328,6 +341,9 @@ public class PostServiceImpl implements PostService {
 	public void update(Post p){
 		Optional<PostPO> opo = postDao.findById(p.getId());
 		if (opo.isPresent()) {
+			//处理文章内容
+			p.setContent(conversionContent(p.getContent()));
+			
 			PostPO po=opo.get();
 			po.setTitle(p.getTitle());//标题
 			po.setChannelId(p.getChannelId());
@@ -490,6 +506,27 @@ public class PostServiceImpl implements PostService {
 
 	private void submitAttr(PostAttribute attr) {
 		postAttributeDao.save(attr);
+	}
+	
+	/**
+	 * 处理内容
+	 * @param content
+	 * @return
+	 */
+	private String conversionContent(String content) {
+		String domain=config.getString(SysEnum.DOMAIN);
+		Document doc = Jsoup.parse(content);
+		Elements as = doc.select("img");
+		for (Element a : as) {
+				String src = a.attr("src");
+				if(StringUtils.isNotEmpty(src)&&src.startsWith("http")
+						&&!(src.startsWith("https://"+domain)||src.startsWith("http://"+domain))) {
+					String url=ossFactory.build().upload(src);
+					content=content.replace(src, url);
+				}
+				
+		}
+		return content;
 	}
 
 }

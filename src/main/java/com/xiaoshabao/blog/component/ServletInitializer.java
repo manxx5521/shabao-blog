@@ -24,14 +24,14 @@ public class ServletInitializer implements ServletContextAware,ApplicationRunner
 	@Autowired
 	private ChannelService channelService;
 	
-	private final static String[] KEYS= {"site_metas","site_domain","site_name","site_keywords","site_description"};
+	private final static String[] KEYS= {"site.metas","site.domain","site.name","site.keywords","site.description"};
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		servletContext.setAttribute("base", servletContext.getContextPath());
 		
 		for(String key:KEYS) {
-			servletContext.setAttribute(key,sysConfig.getString(key));
+			servletContext.setAttribute(key.replace(".", "_"),sysConfig.getString(key));
 		}
 		servletContext.setAttribute("channels", channelService.findAll(Consts.STATUS_NORMAL));
 	}
