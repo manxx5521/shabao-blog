@@ -6,7 +6,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>500 ERROR</title>
-
+    
+	<link rel="apple-touch-icon-precomposed" href="${base}/static/error/images/favicon.ico"/>
+	<link rel="shortcut icon" href="${base}/static/error/images/favicon.ico"/>
     <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <style>
         html { height: 100%; }
