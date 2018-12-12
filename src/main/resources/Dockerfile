@@ -1,7 +1,10 @@
 #********************************
 # 博客系统构建：版本1.0.3
 # 下载 docker pull registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
-# 启动 docker run -p 80:80 -p 443:443 --name blog -v /usr/docker/blog:/app/data -d registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
+# 启动 
+docker run -p 80:80 -p 443:443 --name blog \
+  -v /usr/docker/blog:/app/data \
+  -d registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
 # 重启和停止 docker restart blog 和 docker stop blog
 # 删除容器和镜像 docker rm blog 和 docker rmi registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
 # 进入容器 docker exec -it blog bash
