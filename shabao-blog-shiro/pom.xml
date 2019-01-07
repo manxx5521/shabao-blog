@@ -58,7 +58,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<!-- 设置jar包默认运行时启动的类 -->
-					<maimClass>com.xiaoshabao.blog.BlogApplication</maimClass>
+					<maimClass>com.xiaoshabao.blog.BlogShiroApplication</maimClass>
 					<fork>true</fork>
 				</configuration>
 			</plugin>

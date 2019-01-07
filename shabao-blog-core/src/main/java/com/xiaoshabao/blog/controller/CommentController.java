@@ -1,7 +1,6 @@
 package com.xiaoshabao.blog.controller;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
@@ -53,7 +52,7 @@ public class CommentController extends BaseController {
 			,@RequestParam(defaultValue="0") long pid) {
 		
 		Data data = Data.failure("操作失败");
-		if (!SecurityUtils.getSubject().isAuthenticated()) {
+		if (!contentHolder.isAuthenticated()) {
 			data = Data.failure("请先登录在进行操作");
 			
 			return data;

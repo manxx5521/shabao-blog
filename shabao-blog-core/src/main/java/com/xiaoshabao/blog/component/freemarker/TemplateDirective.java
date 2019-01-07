@@ -3,9 +3,6 @@ package com.xiaoshabao.blog.component.freemarker;
 import java.io.IOException;
 import java.util.Map;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
@@ -31,8 +28,6 @@ public abstract class TemplateDirective implements TemplateDirectiveModel {
 	
 	protected abstract void execute(DirectiveFunction function) throws TemplateException, IOException ;
 
-    protected final Subject getSubject() {
-        return SecurityUtils.getSubject();
-    }
+   
     
 }

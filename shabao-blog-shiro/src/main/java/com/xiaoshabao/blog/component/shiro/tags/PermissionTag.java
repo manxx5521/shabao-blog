@@ -1,5 +1,8 @@
 package com.xiaoshabao.blog.component.shiro.tags;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import com.xiaoshabao.blog.component.freemarker.DirectiveFunction;
 import com.xiaoshabao.blog.component.freemarker.TemplateDirective;
 import com.xiaoshabao.blog.lang.Consts;
@@ -39,4 +42,8 @@ public abstract class PermissionTag extends TemplateDirective {
     }
 
     protected abstract boolean showTagBody(String p);
+    
+    protected final Subject getSubject() {
+        return SecurityUtils.getSubject();
+    }
 }

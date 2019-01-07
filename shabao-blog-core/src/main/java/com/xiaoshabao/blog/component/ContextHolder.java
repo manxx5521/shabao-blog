@@ -7,5 +7,11 @@ public interface ContextHolder {
 	AccountProfile getProfile();
 	
 	void putProfile(AccountProfile profile);
+	
+	/**
+	 * 是否通过身份验证
+	 * @return
+	 */
+	boolean isAuthenticated();
 
 }

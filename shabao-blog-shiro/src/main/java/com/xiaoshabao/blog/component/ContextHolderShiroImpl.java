@@ -23,4 +23,9 @@ public class ContextHolderShiroImpl implements ContextHolder{
 		SecurityUtils.getSubject().getSession(true).setAttribute("profile", profile);		
 	}
 
+	@Override
+	public boolean isAuthenticated() {
+		return SecurityUtils.getSubject().isAuthenticated();
+	}
+
 }

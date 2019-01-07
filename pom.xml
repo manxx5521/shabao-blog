@@ -19,7 +19,6 @@
 	<modules>
 		<module>shabao-blog-core</module>
 		<module>shabao-blog-shiro</module>
-		<module>shabao-blog-cloud</module>
 	</modules>
 
 
