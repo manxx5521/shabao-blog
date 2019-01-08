@@ -1,6 +1,6 @@
 seajs.config({
     alias: {
-        'plugins': '/static/dist/js/plugins',
+        'plugins': app.base+'/static/dist/js/plugins',
 
             /* modules */
         'main': 'default/js/modules/main',
