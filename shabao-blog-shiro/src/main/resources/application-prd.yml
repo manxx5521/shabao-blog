@@ -11,16 +11,16 @@ spring:
   profiles: prd
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.91.220.42:3306/shabao_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://47.75.206.89:3306/shabao_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: master
     password: 19911105man
   jpa:
     properties:
       hibernate.search.default.indexBase: /app/data/indexs
   redis:
-    database: 3
+    database: 10
     port: 6379
-    host: 47.91.220.42
+    host: 47.75.206.89
     password: 19911105man
     pool:
       max-active: 20
