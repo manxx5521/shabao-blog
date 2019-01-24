@@ -35,7 +35,8 @@ public class AccountProfile implements Serializable {
     private List<AuthMenu> authMenus;
 
     private BadgesCount badgesCount;
-
+    public AccountProfile() {
+    }
     public AccountProfile(long id, String username) {
         this.id = id;
         this.username = username;

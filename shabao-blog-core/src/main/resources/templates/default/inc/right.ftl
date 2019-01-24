@@ -61,11 +61,11 @@ var tag_li_template	= '<li class="mb6"><a href="${base}/tag/{0}/" class="tag" ti
 
 seajs.use('sidebox', function (sidebox) {
 	sidebox.init({
-        tagsUrl : '${base}/api/hottags',
-        latestUrl : '${base}/api/latests',
-    	hotUrl : '${base}/api/hots',
-		hotTagUrl : '${base}/api/hot_tags',
-		hotUserUrl:'${base}/api/hotusers',
+        tagsUrl : '${base}/api/hottags?1=1<#if access_token??>&access_token=${access_token}</#if>',
+        latestUrl : '${base}/api/latests?1=1<#if access_token??>&access_token=${access_token}</#if>',
+    	hotUrl : '${base}/api/hots?1=1<#if access_token??>&access_token=${access_token}</#if>',
+		hotTagUrl : '${base}/api/hot_tags?1=1<#if access_token??>&access_token=${access_token}</#if>',
+		hotUserUrl:'${base}/api/hotusers?1=1<#if access_token??>&access_token=${access_token}</#if>',
 
         size :10,
         // callback
@@ -80,7 +80,7 @@ seajs.use('sidebox', function (sidebox) {
       		return jQuery.format(li_template, i + 1, data.id, data.title);
         },
         onLoadHotUser : function (i, data) {
-        var url = '${base}/users/' + data.id;
+        var url = '${base}/users/' + data.id+'?1=1<#if access_token??>&access_token=${access_token}</#if>';
       		var item = jQuery.format(hotUser_li_template,data.avatar,url,data.name, data.fans);
       		return item;
         }

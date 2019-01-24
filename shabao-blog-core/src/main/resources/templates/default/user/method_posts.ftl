@@ -15,7 +15,7 @@
                 <ul class="list-group">
 					<#list page.content as row>
                         <li class="list-group-item" el="loop-${row.id}">
-							<a href="${base}/view/${row.id}" class="remove-padding-left">${row.title}</a>
+							<a href="${base}/view/${row.id}?1=1<#if access_token??>&access_token=${access_token}</#if>" class="remove-padding-left">${row.title}</a>
                             <span class="meta">
 								${row.favors} 点赞
 								<span> ⋅ </span>
@@ -62,7 +62,7 @@ $(function() {
             btn: ['确定','取消'], //按钮
             shade: false //不显示遮罩
         }, function(){
-			jQuery.getJSON('${base}/post/delete/' + id, function (ret) {
+			jQuery.getJSON('${base}/post/delete/' + id+'?1=1<#if access_token??>&access_token=${access_token}</#if>', function (ret) {
 				layer.msg(ret.message, {icon: 1});
 				if (ret.code >=0) {
 					$('#loop-' + id).fadeOut();
@@ -78,7 +78,7 @@ $(function() {
 	// edit
 	$('a[data-evt=edit]').click(function () {
 		var id = $(this).attr('data-id');
-		window.location.href='${base}/post/to_update/' + id;
+		window.location.href='${base}/post/to_update/' + id+'?1=1<#if access_token??>&access_token=${access_token}</#if>';
 	});
 })
 </script>

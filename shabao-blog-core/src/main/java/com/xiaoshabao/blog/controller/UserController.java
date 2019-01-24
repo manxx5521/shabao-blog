@@ -82,8 +82,8 @@ public class UserController extends BaseController {
 			,@RequestParam(defaultValue="1") Integer pn
 			,@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
 		Pageable pageable = PageRequest.of(pn-1, pageSize);
-
-		Page<Feeds> page = feedsService.findUserFeeds(pageable, contentHolder.getProfile().getId());
+		AccountProfile profile=contentHolder.getProfile();
+		Page<Feeds> page = feedsService.findUserFeeds(pageable, profile.getId());
 
 		model.put("page", page);
 		initUser(model);

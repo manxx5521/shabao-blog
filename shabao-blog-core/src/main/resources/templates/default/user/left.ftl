@@ -2,14 +2,14 @@
 <ul class="list-group about-user">
     <li class="list-group-item user-card" >
         <div class="ava">
-            <a href="${base}/users/${user.id}">
+            <a href="${base}/users/${user.id}?1=1<#if access_token??>&access_token=${access_token}</#if>">
                 <@showAva user.avatar "img-circle"/>
             </a>
         </div>
         <div class="user-info">
             <div class="nk mb10">${user.name}</div>
             <div class="mb6">
-                <a class="btn btn-success btn-xs" href="${base}/user/profile"><i class="icon icon-note"></i> 修改账户</a>
+                <a class="btn btn-success btn-xs" href="${base}/user/profile?1=1<#if access_token??>&access_token=${access_token}</#if>"><i class="icon icon-note"></i> 修改账户</a>
             </div>
         </div>
     </li>
@@ -30,31 +30,31 @@
     <div id="home-navbar" class="collapse navbar-collapse">
         <ul class="list-group user-nav first">
             <li class="list-group-item">
-                <a href="${base}/user"><i class="icon icon-layers"></i> 动态</a>
+                <a href="${base}/user?1=1<#if access_token??>&access_token=${access_token}</#if>"><i class="icon icon-layers"></i> 动态</a>
             </li>
             <li class="list-group-item">
-                <a href="${base}/user?method=posts"><i class="icon icon-list"></i> 我的文章</a>
+                <a href="${base}/user?method=posts<#if access_token??>&access_token=${access_token}</#if>"><i class="icon icon-list"></i> 我的文章</a>
             </li>
             <li class="list-group-item">
-                <a href="${base}/user?method=comments"><i class="icon icon-speech"></i> 我的评论</a>
-            </li>
-        </ul>
-
-        <ul class="list-group user-nav">
-            <li class="list-group-item">
-                <a href="${base}/user?method=favors"><i class="icon icon-heart"></i> 我的喜欢</a>
-            </li>
-            <li class="list-group-item">
-                <a href="${base}/user?method=follows"><i class="icon icon-user-following"></i> 我的关注</a>
-            </li>
-            <li class="list-group-item">
-                <a href="${base}/user?method=fans"><i class="icon icon-user-follow"></i> 我的粉丝</a>
+                <a href="${base}/user?method=comments<#if access_token??>&access_token=${access_token}</#if>"><i class="icon icon-speech"></i> 我的评论</a>
             </li>
         </ul>
 
         <ul class="list-group user-nav">
             <li class="list-group-item">
-                <a href="${base}/user?method=notifies">
+                <a href="${base}/user?method=favors<#if access_token??>&access_token=${access_token}</#if>"><i class="icon icon-heart"></i> 我的喜欢</a>
+            </li>
+            <li class="list-group-item">
+                <a href="${base}/user?method=follows<#if access_token??>&access_token=${access_token}</#if>"><i class="icon icon-user-following"></i> 我的关注</a>
+            </li>
+            <li class="list-group-item">
+                <a href="${base}/user?method=fans<#if access_token??>&access_token=${access_token}</#if>"><i class="icon icon-user-follow"></i> 我的粉丝</a>
+            </li>
+        </ul>
+
+        <ul class="list-group user-nav">
+            <li class="list-group-item">
+                <a href="${base}/user?method=notifies<#if access_token??>&access_token=${access_token}</#if>">
                     <i class="icon icon-envelope"></i> 通知
                     <#if (profile.badgesCount.notifies > 0)>
                         <span class="label label-danger">${profile.badgesCount.notifies}</span>

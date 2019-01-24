@@ -7,7 +7,7 @@
 	</div>
 	<div class="panel-body">
 		<div id="message"></div>
-		<form class="form-horizontal" action="${base}/post/update" method="post" enctype="multipart/form-data">
+		<form class="form-horizontal" action="${base}/post/update?1=1<#if access_token??>&access_token=${access_token}</#if>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="${view.id}"/>
             <input type="hidden" name="authorId" value="${view.authorId}"/>
 			<div class="form-group">
