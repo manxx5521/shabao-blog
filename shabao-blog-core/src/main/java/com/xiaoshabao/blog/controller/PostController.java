@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaoshabao.base.component.AjaxResult;
 import com.xiaoshabao.base.controller.BaseController;
 import com.xiaoshabao.blog.component.ContextHolder;
 import com.xiaoshabao.blog.dto.AccountProfile;
@@ -53,7 +54,8 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/submit", method = RequestMethod.POST)
-	public String post(Post p, HttpServletRequest request) {
+	@ResponseBody
+	public AjaxResult post(Post p, HttpServletRequest request) {
 		Assert.notNull(p, "参数不完整");
 		Assert.state(StringUtils.isNotBlank(p.getTitle()), "标题不能为空");
 		Assert.state(StringUtils.isNotBlank(p.getContent()), "内容不能为空");
@@ -61,7 +63,8 @@ public class PostController extends BaseController {
 		p.setAuthorId(profile.getId());
 
 		postService.post(p);
-		return Views.REDIRECT_USER_POSTS;
+//		return Views.REDIRECT_USER_POSTS;
+		return AjaxResult.ok("添加成功");
 	}
 
 	/**
@@ -112,7 +115,8 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String subUpdate(Post p, HttpServletRequest request) {
+	@ResponseBody
+	public AjaxResult subUpdate(Post p, HttpServletRequest request) {
 		Assert.notNull(p, "参数不完整");
 		Assert.state(StringUtils.isNotBlank(p.getTitle()), "标题不能为空");
 		Assert.state(StringUtils.isNotBlank(p.getContent()), "内容不能为空");
@@ -123,7 +127,8 @@ public class PostController extends BaseController {
 			p.setContent(content);
 			postService.update(p);
 		}
-		return Views.REDIRECT_USER_POSTS;
+//		return Views.REDIRECT_USER_POSTS;
+		return AjaxResult.ok("添加成功");
 	}
 
 }

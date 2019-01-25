@@ -71,7 +71,7 @@
                 <ul class="nav navbar-nav">
 					<#if profile??>
 						<li data="user">
-							<a href="${base}/user" nav="user">我的主页</a>
+							<a href="${base}/user<#if access_token??>?access_token=${access_token}</#if>" nav="user">我的主页</a>
 						</li>
 					</#if>
 					<#list channels as row>
@@ -91,7 +91,7 @@
                     </li>
 
 				<#if profile??>
-                    <li><a href="${base}/post/new" class="btn btn-sm"><i class="icon icon-note"></i> 写文章</a></li>
+                    <li><a href="${base}/post/new<#if access_token??>?access_token=${access_token}</#if>" class="btn btn-sm"><i class="icon icon-note"></i> 写文章</a></li>
                     <li class="dropdown">
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
                             <img class="img-circle" src="${base}${profile.avatar}?t=${.now}">

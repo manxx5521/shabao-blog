@@ -29,6 +29,52 @@ define(function(require, exports, module) {
         	
         	that.bindTagit();
         	that.bindValidate();
+        	
+        	$.fn.serializeObject = function()
+        	{
+        		var o = {};
+        		var a = this.serializeArray();
+        		$.each(a, function() {
+        			if (o[this.name] !== undefined) {
+        				if (!o[this.name].push) {
+        					o[this.name] = [o[this.name]];
+        				}
+        				o[this.name].push(this.value || '');
+        			} else {
+        				o[this.name] = this.value || '';
+        			}
+        		});
+        		return o;
+        	};
+        	$('button.btn-primary').click(function(){
+        		var url=$('form.form-horizontal').attr('action');
+        		var formdata = $("form.form-horizontal").serializeObject();
+        		var content=tinymce.get('content').getContent();
+        		formdata.content=content;
+        		
+        		$.ajax({
+					type : "POST",
+					url : url,
+					data:formdata,
+					dataType : "json",
+					success : function(data) {
+						if (!data.success) {
+							alert(data.error)
+						}else{
+							//重写onbeforeunload 不会提示是否离开
+							window.onbeforeunload =function() {
+								    return null;
+							}
+							 window.location.href=app.base+'/user?method=posts&access_token='+formdata.access_token;
+						}
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown) {
+						//console.log(errorThrown)
+						alert('系统错误');
+					}
+				});
+        	})
+        	
         },
         
         bindTagit : function () {

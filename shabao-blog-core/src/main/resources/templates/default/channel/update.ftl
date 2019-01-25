@@ -7,7 +7,7 @@
 	</div>
 	<div class="panel-body">
 		<div id="message"></div>
-		<form class="form-horizontal" action="${base}/post/update?1=1<#if access_token??>&access_token=${access_token}</#if>" method="post" enctype="multipart/form-data">
+		<form class="form-horizontal" action="${base}/post/update" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="${view.id}"/>
             <input type="hidden" name="authorId" value="${view.authorId}"/>
 			<div class="form-group">
@@ -44,7 +44,8 @@
 			<div class="row">
 				<div class="form-group">
 					<div class="text-center">
-						<button type="submit" class="btn btn-primary">提交</button>
+						<input type="hidden" name="access_token" value="${access_token!}">
+						<button type="button" class="btn btn-primary">提交</button>
 					</div>
 				</div>
 			</div>

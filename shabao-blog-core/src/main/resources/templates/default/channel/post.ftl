@@ -6,7 +6,8 @@
 	</div>
 	<div class="panel-body">
 		<div id="message"></div>
-		<form class="form-horizontal" action="${base}/post/submit" method="post" enctype="multipart/form-data">
+		<!--method="post" enctype="multipart/form-data" -->
+		<form class="form-horizontal" action="${base}/post/submit" >
 			<div class="form-group">
 				<label class="col-sm-2 control-label no-padding-right">标题</label>
 				<div class="col-sm-8">
@@ -41,7 +42,8 @@
 			<div class="row">
 				<div class="form-group">
 					<div class="text-center">
-						<button type="submit" class="btn btn-primary">提交</button>
+						<input type="hidden" name="access_token" value="${access_token!}">
+						<button type="button" class="btn btn-primary">提交</button>
 					</div>
 				</div>
 			</div>
