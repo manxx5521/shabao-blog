@@ -1,21 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  	<modelVersion>4.0.0</modelVersion>
+  	<artifactId>shabao-blog-core</artifactId>
+  	<description>博客系统核心包</description>
+  	<packaging>jar</packaging>
 	<parent>
-		<groupId>shabao-blog</groupId>
+		<groupId>com.xiaoshabao.blog</groupId>
 		<artifactId>shabao-blog</artifactId>
-		<version>0.0.1</version>
+		<version>${shabao.blog}</version>
 	</parent>
-	<artifactId>shabao-blog-core</artifactId>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	
 	<dependencies>
-
 		<!-- 基础包 -->
 		<dependency>
-			<groupId>com.xiaoshabao.base</groupId>
-			<artifactId>shabao-base</artifactId>
+			<groupId>com.xiaoshabao</groupId>
+			<artifactId>shabao-common</artifactId>
 		</dependency>
 
 		<!-- 引入测试包 -->
@@ -97,10 +95,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
 			</plugin>
 			<!-- 跳过测试用例,防止编译时出错 -->
 			<plugin>

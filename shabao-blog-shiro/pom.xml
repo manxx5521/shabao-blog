@@ -1,18 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>shabao-blog</groupId>
-    <artifactId>shabao-blog</artifactId>
-    <version>0.0.1</version>
-  </parent>
-  <artifactId>shabao-blog-shiro</artifactId>
-  
-  <dependencies>
-		<!-- 基础包 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>shabao-blog-shiro</artifactId>
+	<description>博客shiro单体集成包</description>
+	<packaging>jar</packaging>
+	<parent>
+		<groupId>com.xiaoshabao.blog</groupId>
+		<artifactId>shabao-blog</artifactId>
+		<version>${shabao.blog}</version>
+	</parent>
+
+	<dependencies>
+		<!-- blog核心包 -->
 		<dependency>
-			<groupId>shabao-blog</groupId>
+			<groupId>com.xiaoshabao.blog</groupId>
 			<artifactId>shabao-blog-core</artifactId>
-			<version>0.0.1</version>
 		</dependency>
 
 		<!-- 引入shiro的依赖包 -->
@@ -47,10 +49,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
 			</plugin>
 			<!-- 打包插件 -->
 			<plugin>

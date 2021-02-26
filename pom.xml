@@ -2,24 +2,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>shabao-blog</groupId>
+	<groupId>com.xiaoshabao.blog</groupId>
 	<artifactId>shabao-blog</artifactId>
-
+	<version>${shabao.blog}</version>
 	<packaging>pom</packaging>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<parent>
-		<groupId>com.xiaoshabao.base</groupId>
+		<groupId>com.xiaoshabao</groupId>
 		<artifactId>shabao-base-parent</artifactId>
-		<version>0.0.1</version>
+		<version>1.0.0</version>
 	</parent>
+	<properties>
+		<shabao.blog>1.0.0</shabao.blog>
+	</properties>
 	<modules>
 		<module>shabao-blog-core</module>
 		<module>shabao-blog-shiro</module>
+		<module>shabao-blog-cloud</module>
 	</modules>
+	<!--依赖管理，用于管理子项目的依赖 -->
+	<dependencyManagement>
+		<dependencies>
+			<!--增加自身的依赖 begin -->
+			<dependency>
+				<groupId>com.xiaoshabao.blog</groupId>
+				<artifactId>shabao-blog-core</artifactId>
+				<version>${shabao.blog}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xiaoshabao.blog</groupId>
+				<artifactId>shabao-blog-shiro</artifactId>
+				<version>${shabao.blog}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xiaoshabao.blog</groupId>
+				<artifactId>shabao-blog-cloud</artifactId>
+				<version>${shabao.blog}</version>
+			</dependency>
+			<!--增加自身的依赖 end -->
+		</dependencies>
+	</dependencyManagement>
 
 
 </project>
