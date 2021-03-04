@@ -21,7 +21,7 @@ public class IndexController extends BaseController{
 			@RequestParam(defaultValue=Consts.skin.DEFAULT) String skin) {
 		model.put("order", order);
 		model.put("pn", pn);
-//		model.put("profile", "11");//临时 include.ftl 32行 实际LOGIN_TOKEN: '${profile.id}'
+//		model.put("profile", "11");//临时 include.ftlh 32行 实际LOGIN_TOKEN: '${profile.id}'
 		return skin+Views.INDEX;
 	}
 	

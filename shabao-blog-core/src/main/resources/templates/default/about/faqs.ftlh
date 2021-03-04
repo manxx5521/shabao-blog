@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftlhh"/>
 
 <@layout "常见问题解答" site_keywords site_description>
 
@@ -69,7 +69,7 @@
         <!-- /view show -->
     </div>
     <div class="col-xs-12 col-md-3 side-right hidden-xs hidden-sm">
-		<#include "/default/inc/right.ftl"/>
+		<#include "/default/inc/right.ftlhh"/>
     </div>
 </div>
 

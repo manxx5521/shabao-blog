@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftlhh"/>
 
 <@layout "注册" site_keywords site_description>
 <div class="row">
@@ -8,7 +8,7 @@
                 <h3 class="panel-title">注册</h3>
             </div>
             <div class="panel-body">
-                <#include "/default/inc/action_message.ftl"/>
+                <#include "/default/inc/action_message.ftlhh"/>
                 <div id="message">
                 </div>
                 <form method="POST" action="register" accept-charset="UTF-8">

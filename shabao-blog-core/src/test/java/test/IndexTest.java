@@ -7,16 +7,13 @@ import javax.persistence.PersistenceUnit;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.xiaoshabao.blog.BlogCoreApplication;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = BlogCoreApplication.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @WebAppConfiguration
 public class IndexTest {

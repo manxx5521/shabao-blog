@@ -1,10 +1,10 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftlh"/>
 
 <@layout "我的主页" site_keywords site_description>
 
 <div class="row users-show streams">
     <div class="col-xs-12 col-md-3 side-left">
-        <#include "/default/user/left.ftl"/>
+        <#include "/default/user/left.ftlh"/>
     </div>
     <div class="col-xs-12 col-md-9 side-right">
         <div class="panel panel-default">

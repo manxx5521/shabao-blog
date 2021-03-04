@@ -1,39 +1,38 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftlh"/>
 
-<@layout "我的评论" site_keywords site_description>
+<@layout "我的文章"  site_keywords site_description>
 <div class="row users-show">
     <div class="col-xs-12 col-md-3 side-left">
-		<#include "/default/user/left.ftl"/>
+		<#include "/default/user/left.ftlh"/>
     </div>
     <div class="col-xs-12 col-md-9 side-right">
         <div class="panel panel-default">
             <div class="panel-heading">
-                我的评论
+                我的文章
             </div>
 
             <div class="panel-body">
                 <ul class="list-group">
 					<#list page.content as row>
                         <li class="list-group-item" el="loop-${row.id}">
-							<#if row.post??>
-                                <a href="${base}/view/${row.post.id}" class="remove-padding-left">${row.post.title}</a>
-							<#else>
-                                <a href="javascript:;" class="remove-padding-left">文章已删除</a>
-							</#if>
+							<a href="${base}/view/${row.id}?1=1<#if access_token??>&access_token=${access_token}</#if>" class="remove-padding-left">${row.title}</a>
                             <span class="meta">
+								${row.favors} 点赞
+								<span> ⋅ </span>
+								${row.comments} 回复
+								<span> ⋅ </span>
 								<span class="timeago">${timeAgo(row.created)}</span>
       						</span>
 
-							<div class="pull-right hidden-xs">
-								<a class="act" href="javascript:void(0);" data-evt="trash" data-id="${row.id}" data-toggle="tooltip" title="删除评论">
+                            <div class="pull-right hidden-xs">
+                                <a class="act_edit" href="javascript:void(0);" data-evt="edit" data-id="${row.id}" data-toggle="tooltip" title="编辑文章">
+                                    <i class="icon icon-note"></i>
+								</a>
+                                <a class="act_delete" href="javascript:void(0);" data-evt="trash" data-id="${row.id}" data-toggle="tooltip" title="删除文章">
                                     <i class="icon icon-close"></i>
-                                </a>
-							</div>
-
-                            <div class="reply-body markdown-reply content-body">
-                                <p>${row.content}</p>
+								</a>
                             </div>
-						</li>
+                        </li>
 					</#list>
 
 					<#if page.content?size == 0>
@@ -46,7 +45,7 @@
                 </ul>
             </div>
             <div class="panel-footer">
-				<@pager "user?method=comments", page, 5/>
+				<@pager "user?method=posts", page, 5/>
             </div>
         </div>
     </div>
@@ -55,6 +54,7 @@
 
 <script type="text/javascript">
 $(function() {
+	// delete
 	$('a[data-evt=trash]').click(function () {
 		var id = $(this).attr('data-id');
 
@@ -62,19 +62,23 @@ $(function() {
             btn: ['确定','取消'], //按钮
             shade: false //不显示遮罩
         }, function(){
-			jQuery.getJSON('${base}/comment/delete', {'id':id }, function (ret) {
+			jQuery.getJSON('${base}/post/delete/' + id+'?1=1<#if access_token??>&access_token=${access_token}</#if>', function (ret) {
 				layer.msg(ret.message, {icon: 1});
 				if (ret.code >=0) {
-					var el = $('li[el=loop-' + id + ']');
-                    el.next().remove();
-                    el.next().remove();
-                    el.remove();
+					$('#loop-' + id).fadeOut();
+					$('#loop-' + id).remove();
 				}
 			});
-            
+
         }, function(){
-			
+
         });
+	});
+	
+	// edit
+	$('a[data-evt=edit]').click(function () {
+		var id = $(this).attr('data-id');
+		window.location.href='${base}/post/to_update/' + id+'?1=1<#if access_token??>&access_token=${access_token}</#if>';
 	});
 })
 </script>

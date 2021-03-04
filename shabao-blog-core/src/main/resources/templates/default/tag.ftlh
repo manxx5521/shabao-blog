@@ -1,6 +1,6 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftlh"/>
 
-<@layout "搜索:" + kw  site_keywords site_description>
+<@layout "标签:" + kw site_keywords site_description>
 
 <div class="row streams">
     <div class="col-xs-12 col-md-9 side-left">
@@ -8,7 +8,7 @@
             <div class="panel-heading">
                 <ul class="list-inline topic-filter">
                     <li class="popover-with-html">
-                        搜索: ${kw} 共 ${page.totalElements} 个结果.
+                        标签: ${kw} 共 ${page.totalElements} 个结果.
                     </li>
                 </ul>
                 <div class="clearfix"></div>
@@ -17,7 +17,7 @@
             <div class="panel-body remove-padding-horizontal">
 
                 <ul class="list-group row topic-list">
-                    <#list page.content as row>
+					<#list page.content as row>
                         <li class="list-group-item ">
                             <a class="reply_count_area hidden-xs pull-right" href="#">
                                 <div class="count_set">
@@ -38,31 +38,30 @@
                             </div>
                             <div class="infos">
                                 <div class="media-heading">
-                                <#--<span class="hidden-xs label label-warning">${row.channel.name}</span>-->
+								<#--<span class="hidden-xs label label-warning">${row.channel.name}</span>-->
                                     <a href="${base}/view/${row.id}">${row.title}</a>
                                 </div>
                             </div>
                         </li>
-                    </#list>
+					</#list>
 
-                    <#if !page?? || page.content?size == 0>
+					<#if page.content?size == 0>
                         <li class="list-group-item ">
                             <div class="infos">
                                 <div class="media-heading">该目录下还没有内容!</div>
                             </div>
                         </li>
-                    </#if>
+					</#if>
                 </ul>
             </div>
 
             <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                <@pager request.requestURI!"", page, 5/>
+				<@pager request.requestURI!"", page, 5/>
             </div>
         </div>
     </div>
     <div class="col-xs-12 col-md-3 side-right">
-        <#include "/default/inc/right.ftl" />
+		<#include "/default/inc/right.ftlh" />
     </div>
 </div>
 </@layout>
-

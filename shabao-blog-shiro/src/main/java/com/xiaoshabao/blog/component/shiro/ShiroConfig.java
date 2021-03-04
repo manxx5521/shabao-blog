@@ -53,6 +53,7 @@ public class ShiroConfig {
         securityManager.setSubjectFactory(this.accountSubjectFactory());
         return securityManager;
     }
+    
 
     /**
      * session管理器(单机环境)

@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftlhh"/>
 <@layout "修改用户信息" site_keywords site_description>
 
 <div class="panel panel-default stacked">
@@ -11,7 +11,7 @@
 	</div>
 	<div class="panel-body">
 		<div id="message">
-			<#include "/default/inc/action_message.ftl"/>
+			<#include "/default/inc/action_message.ftlhh"/>
 		</div>
 		<form class="form-horizontal" action="avatar" method="post">
 			<input type="hidden" id="x" name="x" value=""/>

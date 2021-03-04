@@ -126,6 +126,6 @@ public interface Consts {
 
 	int NOTIFY_EVENT_COMMENT_REPLY = 4; // 有人回复了你
 
-	String EMAIL_TEMPLATE_FORGOT = "forgot.ftl";
-	String EMAIL_TEMPLATE_BIND = "bind.ftl";
+	String EMAIL_TEMPLATE_FORGOT = "forgot.ftlhh";
+	String EMAIL_TEMPLATE_BIND = "bind.ftlhh";
 }

@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftlhh"/>
 <@layout "登录" site_keywords site_description>
 
 <div class="row">
@@ -8,7 +8,7 @@
                 <h3 class="panel-title">请登录</h3>
             </div>
             <div class="panel-body">
-                <div id="message"><#include "/default/inc/action_message.ftl"/></div>
+                <div id="message"><#include "/default/inc/action_message.ftlhh"/></div>
                 <form method="POST" action="login" accept-charset="UTF-8">
                     <div class="form-group ">
                         <label class="control-label" for="username">账号</label>

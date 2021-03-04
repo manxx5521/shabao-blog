@@ -14,11 +14,11 @@
     <meta name="keywords" content="mtons, ${keywords?default(site_keywords)}">
     <meta name="description" content="${description?default(site_description)}">
 
-    <#include "/default/inc/include.ftl"/>
+    <#include "/default/inc/include.ftlh"/>
 </head>
 <body>
 <!-- header -->
-    <#include "/default/inc/header.ftl"/>
+    <#include "/default/inc/header.ftlh"/>
 <!-- /header -->
 
 <!-- content -->
@@ -31,7 +31,7 @@
 <!-- /content -->
 
 <!-- footer -->
-    <#include "/default/inc/footer.ftl"/>
+    <#include "/default/inc/footer.ftlh"/>
 
 </body>
 </html>

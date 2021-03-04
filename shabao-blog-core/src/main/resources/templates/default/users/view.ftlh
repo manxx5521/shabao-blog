@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftlh"/>
 
 <@layout user.name + "的主页" site_keywords site_description>
 <div class="row users-show streams">
