@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftlhh"/>
+<#include "/default/utils/ui.ftlh"/>
 
 <#assign title = view.title + ' - ' + site_name />
 <#assign keywords = view.keywords?default(site_keywords) />
@@ -116,7 +116,7 @@
                 </div>
             </li>
         </ul>
-        <#include "/default/inc/right.ftlhh"/>
+        <#include "/default/inc/right.ftlh"/>
     </div>
 </div>
 

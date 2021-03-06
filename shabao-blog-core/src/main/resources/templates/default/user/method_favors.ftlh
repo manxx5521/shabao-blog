@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftlhh"/>
+<#include "/default/utils/ui.ftlh"/>
 
 <@layout "我的喜欢" site_keywords site_description>
 <div class="row users-show">

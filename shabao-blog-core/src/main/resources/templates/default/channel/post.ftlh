@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftlhh"/>
+<#include "/default/utils/ui.ftlh"/>
 <@layout "写文章" site_keywords site_description>
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -28,7 +28,7 @@
 				<label for="desc" class="col-sm-2 control-label no-padding-right">内容</label>
 				<input type="hidden" name="editor" value="${site_editor}"/>
 				<div class="col-sm-8">
-					<#include "/default/channel/editor/ueditor.ftlhh"/>
+					<#include "/default/channel/editor/ueditor.ftlh"/>
 				</div>
 			</div>
 			<div class="form-group">

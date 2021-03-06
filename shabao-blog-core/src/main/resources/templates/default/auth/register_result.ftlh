@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftlhh"/>
+<#include "/default/utils/ui.ftlh"/>
 
 <@layout "操作提示"  site_keywords site_description>
 <div class="row">
@@ -8,7 +8,7 @@
                 <h3 class="panel-title">操作提示</h3>
             </div>
             <div class="panel-body">
-                <div id="message"><#include "/default/inc/action_message.ftlhh"/></div>
+                <div id="message"><#include "/default/inc/action_message.ftlh"/></div>
 				<div class="text-center">
 					<#list data.links as row>
 						<a href="${base}/${row.link}" class="btn btn-success">${row.text}</a>

@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftlhh"/>
+<#include "/default/utils/ui.ftlh"/>
 <@layout channel.name?default(site_name) site_keywords site_description>
     <div class="row streams">
         <div class="col-xs-12 col-md-9 side-left">
@@ -69,7 +69,7 @@
         </div>
 
         <div class="col-xs-12 col-md-3 side-right">
-            <#include "/default/inc/right.ftlhh" />
+            <#include "/default/inc/right.ftlh" />
         </div>
 
     </div>

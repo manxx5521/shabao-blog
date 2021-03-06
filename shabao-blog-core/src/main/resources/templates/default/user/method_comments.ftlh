@@ -1,9 +1,9 @@
-<#include "/default/utils/ui.ftlhh"/>
+<#include "/default/utils/ui.ftlh"/>
 
 <@layout "我的评论" site_keywords site_description>
 <div class="row users-show">
     <div class="col-xs-12 col-md-3 side-left">
-		<#include "/default/user/left.ftlhh"/>
+		<#include "/default/user/left.ftlh"/>
     </div>
     <div class="col-xs-12 col-md-9 side-right">
         <div class="panel panel-default">
