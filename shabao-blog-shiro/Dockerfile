@@ -1,9 +1,9 @@
 #********************************
 # 博客系统构建：版本1.0.3
-# 下载 docker pull registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
-# 启动 docker run -p 80:80 -p 443:443 --name blog -v /usr/docker/blog:/app/data -d registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
+# 下载 docker pull registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog-web
+# 启动 docker run -p 80:80 -p 443:443 --name blog -v /usr/docker/blog:/app/data -d registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog-web
 # 重启和停止 docker restart blog 和 docker stop blog
-# 删除容器和镜像 docker rm blog 和 docker rmi registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog
+# 删除容器和镜像 docker rm blog 和 docker rmi registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog-web
 # 进入容器 docker exec -it blog bash
 #********************************
 FROM mykro/java8-jre:latest
@@ -38,7 +38,7 @@ RUN cd shabao-base-${SHABAO_BASE_VERSION} && mvn install -q && cd .. && rm -rf s
 RUN wget -q -O shabao-blog-${SHABAO_BLOG_VERSION}.zip https://codeload.github.com/manxx5521/shabao-blog/zip/${SHABAO_BLOG_VERSION}
 RUN unzip -q shabao-blog-${SHABAO_BLOG_VERSION}.zip && rm -rf shabao-blog-${SHABAO_BLOG_VERSION}.zip
 RUN cd shabao-blog-${SHABAO_BLOG_VERSION} && mvn install -q
-RUN cd /app/shabao-blog-${SHABAO_BLOG_VERSION}/shabao-blog-shiro && mvn install -q
+RUN cd /app/shabao-blog-${SHABAO_BLOG_VERSION}/shabao-blog-core && mvn install -q
 
 RUN cd /app/shabao-blog-${SHABAO_BLOG_VERSION}/shabao-blog-shiro && mvn package
 RUN pwd && ls
