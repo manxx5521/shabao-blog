@@ -28,7 +28,7 @@
 
             <div class="content-body entry-content panel-body ">
                 <div class="markdown-body">
-                ${view.content}
+                ${view.content?no_esc}
                 </div>
             </div>
             <div class="panel-footer operate">
