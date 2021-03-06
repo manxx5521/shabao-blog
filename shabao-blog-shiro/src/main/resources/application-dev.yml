@@ -36,4 +36,5 @@ logging:
   level:
     root: INFO
     com.xiaoshabao.blog.mapper: DEBUG
-  path: C:/logs
+  file:
+    path: C:/logs
