@@ -17,6 +17,8 @@ ARG SHABAO_BLOG_VERSION=1.0.0
 
 #设置时区
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+RUN apt-get -q update && \
+    apt-get -y --no-install-recommends install curl
 
 RUN echo '开始安装maven...'
 RUN curl -fsSL -o apache-maven.tar.gz https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
