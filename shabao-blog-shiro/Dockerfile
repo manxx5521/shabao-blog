@@ -19,7 +19,7 @@ ARG SHABAO_BLOG_VERSION=1.0.0
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
 RUN echo '开始安装maven...'
-RUN wget -q -O apache-maven.tar.gz https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+RUN curl -fsSL -o apache-maven.tar.gz https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 RUN tar -xzf apache-maven.tar.gz && rm -rf apache-maven.tar.gz
 RUN cp -R apache-maven-${MAVEN_VERSION} /usr/local/bin && rm -rf apache-maven-${MAVEN_VERSION}
 RUN export PATH=apache-maven-${MAVEN_VERSION}/bin:$PATH
@@ -31,12 +31,12 @@ RUN apt-get update && apt-get install -y zip
 WORKDIR /app/
 
 #安装项目基础依赖
-RUN wget -q -O shabao-base-${SHABAO_BASE_VERSION}.zip https://codeload.github.com/manxx5521/shabao-base/zip/${SHABAO_BASE_VERSION}
+RUN curl -fsSL -o shabao-base-${SHABAO_BASE_VERSION}.zip https://codeload.github.com/manxx5521/shabao-base/zip/${SHABAO_BASE_VERSION}
 RUN unzip -q shabao-base-${SHABAO_BASE_VERSION}.zip && rm -rf shabao-base-${SHABAO_BASE_VERSION}.zip
 RUN cd shabao-base-${SHABAO_BASE_VERSION} && mvn install -q && cd .. && rm -rf shabao-base-${SHABAO_BASE_VERSION} && echo 'shabao-base 安装完成'
 
 #安装博客项目
-RUN wget -q -O shabao-blog-${SHABAO_BLOG_VERSION}.zip https://codeload.github.com/manxx5521/shabao-blog/zip/${SHABAO_BLOG_VERSION}
+RUN curl -fsSL -o shabao-blog-${SHABAO_BLOG_VERSION}.zip https://codeload.github.com/manxx5521/shabao-blog/zip/${SHABAO_BLOG_VERSION}
 RUN unzip -q shabao-blog-${SHABAO_BLOG_VERSION}.zip && rm -rf shabao-blog-${SHABAO_BLOG_VERSION}.zip
 RUN cd shabao-blog-${SHABAO_BLOG_VERSION} && mvn install -q
 RUN cd /app/shabao-blog-${SHABAO_BLOG_VERSION}/shabao-blog-core && mvn install -q
