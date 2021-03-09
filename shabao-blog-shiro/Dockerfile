@@ -6,7 +6,8 @@
 # 删除容器和镜像 docker rm blog 和 docker rmi registry-vpc.cn-hongkong.aliyuncs.com/xiaoshabao/shabao-blog-web:1.0.0
 # 进入容器 docker exec -it blog bash
 #********************************
-FROM mykro/java8-jre:latest
+#FROM mykro/java8-jre:latest
+FROM mcr.microsoft.com/java/jdk:8-zulu-debian10
 MAINTAINER manxx
 VOLUME /tmp
 #设置版本
