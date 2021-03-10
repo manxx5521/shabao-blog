@@ -117,7 +117,7 @@ public class ShiroConfig {
     /**
      * Shiro的过滤器链
      */
-    @Bean
+    @Bean("shiroFilterFactoryBean")
     public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
