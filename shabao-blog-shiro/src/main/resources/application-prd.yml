@@ -14,6 +14,9 @@ spring:
     url: jdbc:mysql://47.75.206.89:3306/shabao_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: master
     password: 19911105man
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 30
   jpa:
     properties:
       hibernate.search.default.indexBase: /app/data/indexs

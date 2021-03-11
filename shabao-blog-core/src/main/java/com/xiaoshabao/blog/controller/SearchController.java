@@ -34,6 +34,8 @@ public class SearchController extends BaseController {
 				Page<Post> page = postService.search(pageable, kw);
 				model.put("page", page);
 			}else{
+			  model.put("order", Consts.order.NEWEST);
+		    model.put("pn", pn);
 				return skin+Views.INDEX;
 			}
 		} catch (Exception e) {
