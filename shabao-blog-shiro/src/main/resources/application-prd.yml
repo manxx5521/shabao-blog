@@ -29,5 +29,6 @@ logging:
   level:
     root: INFO
     com.xiaoshabao.blog.mapper: DEBUG
+    com.zaxxer.hikari: TRACE
   file:
     path: /app/data/logs
