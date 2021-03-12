@@ -46,13 +46,14 @@ public class PostDaoImpl implements PostDaoCustom {
   public Page<Post> search(Pageable pageable, String q) throws Exception {
     EntityManager em = emf.createEntityManager();
     FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(em);
-    Page<Post> result=null;
+    Page<Post> result = null;
     try {
       SearchFactory sf = fullTextSession.getSearchFactory();
 
       QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
 
-      Query luceneQuery = qb.keyword().onFields("title", "summary", "tags").matching(q).createQuery();
+      Query luceneQuery = qb.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(1)
+        .onFields("title", "summary", "tags").matching(q).createQuery();
 
       FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
 
@@ -83,7 +84,7 @@ public class PostDaoImpl implements PostDaoCustom {
         }
         rets.add(m);
       }
-      result=new PageImpl<>(rets, pageable, query.getResultSize());
+      result = new PageImpl<>(rets, pageable, query.getResultSize());
     } finally {
       fullTextSession.close();
     }
@@ -92,29 +93,36 @@ public class PostDaoImpl implements PostDaoCustom {
 
   @Override
   public Page<Post> searchByTag(Pageable pageable, String tag) {
-    FullTextEntityManager fullTextSession = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
-    SearchFactory sf = fullTextSession.getSearchFactory();
-    QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
+    EntityManager em = emf.createEntityManager();
+    FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(em);
+    Page<Post> result = null;
+    try {
+      SearchFactory sf = fullTextSession.getSearchFactory();
+      QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
 
-    Query luceneQuery = qb.bool().must(qb.phrase().onField("tags").sentence(tag).createQuery()).createQuery();
+      Query luceneQuery = qb.bool().must(qb.phrase().onField("tags").sentence(tag).createQuery()).createQuery();
 
-    FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
-    query.setFirstResult((int) pageable.getOffset());
-    query.setMaxResults(pageable.getPageSize());
+      FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
+      query.setFirstResult((int) pageable.getOffset());
+      query.setMaxResults(pageable.getPageSize());
 
-    Sort sort = new Sort(new SortField("id", SortField.Type.LONG, true));
-    query.setSort(sort);
+      Sort sort = new Sort(new SortField("id", SortField.Type.LONG, true));
+      query.setSort(sort);
 
-    @SuppressWarnings("unchecked")
-    List<PostPO> results = query.getResultList();
-    List<Post> rets = new ArrayList<>(results.size());
+      @SuppressWarnings("unchecked")
+      List<PostPO> results = query.getResultList();
+      List<Post> rets = new ArrayList<>(results.size());
 
-    for (PostPO po : results) {
-      Post m = BeanMapUtils.copy(po, 0);
-      rets.add(m);
+      for (PostPO po : results) {
+        Post m = BeanMapUtils.copy(po, 0);
+        rets.add(m);
+      }
+
+      result = new PageImpl<>(rets, pageable, query.getResultSize());
+    } finally {
+      fullTextSession.close();
     }
-
-    return new PageImpl<>(rets, pageable, query.getResultSize());
+    return result;
   }
 
   @Override
