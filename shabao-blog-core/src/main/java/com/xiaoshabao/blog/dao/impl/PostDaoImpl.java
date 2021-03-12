@@ -35,87 +35,93 @@ import com.xiaoshabao.blog.util.BeanMapUtils;
  *
  */
 public class PostDaoImpl implements PostDaoCustom {
-	@Autowired
-	@PersistenceContext
-	private EntityManager entityManager;
-	@PersistenceUnit EntityManagerFactory emf;
-	
-	@Override
-	public Page<Post> search(Pageable pageable, String q) throws Exception {
-		EntityManager em = emf.createEntityManager();
-		FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(em);
+  @Autowired
+  @PersistenceContext
+  private EntityManager entityManager;
 
-		SearchFactory sf = fullTextSession.getSearchFactory();
-		
-		QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
+  @PersistenceUnit
+  EntityManagerFactory emf;
 
-		Query luceneQuery  = qb.keyword().onFields("title","summary","tags")
-				.matching(q).createQuery();
+  @Override
+  public Page<Post> search(Pageable pageable, String q) throws Exception {
+    EntityManager em = emf.createEntityManager();
+    FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(em);
+    Page<Post> result=null;
+    try {
+      SearchFactory sf = fullTextSession.getSearchFactory();
 
-		FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
-		
-		query.setFirstResult((int)pageable.getOffset());
-		query.setMaxResults(pageable.getPageSize());
+      QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
 
-	    StandardAnalyzer standardAnalyzer = new StandardAnalyzer();
-	    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<span style='color:red;'>", "</span>");
-        QueryScorer queryScorer = new QueryScorer(luceneQuery);
-        Highlighter highlighter = new Highlighter(formatter, queryScorer);
-        
-		@SuppressWarnings("unchecked")
-		List<PostPO> list = query.getResultList();
-	    List<Post> rets = new ArrayList<>(list.size());
+      Query luceneQuery = qb.keyword().onFields("title", "summary", "tags").matching(q).createQuery();
 
-	    for (PostPO po : list) {
-			Post m = BeanMapUtils.copy(po, 0);
+      FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
 
-			// 处理高亮
-			String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
-			String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
+      query.setFirstResult((int) pageable.getOffset());
+      query.setMaxResults(pageable.getPageSize());
 
-			if (StringUtils.isNotEmpty(title)) {
-				m.setTitle(title);
-			}
-			if (StringUtils.isNotEmpty(summary)) {
-				m.setSummary(summary);
-			}
-			rets.add(m);
-		}
-		return new PageImpl<>(rets, pageable, query.getResultSize());
-	}
-	
-	@Override
-	public Page<Post> searchByTag(Pageable pageable, String tag) {
-		FullTextEntityManager fullTextSession = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
-		SearchFactory sf = fullTextSession.getSearchFactory();
-		QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
-		
-		Query luceneQuery  = qb.bool().must(qb.phrase().onField("tags").sentence(tag).createQuery()).createQuery();
+      StandardAnalyzer standardAnalyzer = new StandardAnalyzer();
+      SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<span style='color:red;'>", "</span>");
+      QueryScorer queryScorer = new QueryScorer(luceneQuery);
+      Highlighter highlighter = new Highlighter(formatter, queryScorer);
 
-		FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
-	    query.setFirstResult((int)pageable.getOffset());
-	    query.setMaxResults(pageable.getPageSize());
+      @SuppressWarnings("unchecked")
+      List<PostPO> list = query.getResultList();
+      List<Post> rets = new ArrayList<>(list.size());
 
-		Sort sort = new Sort(new SortField("id", SortField.Type.LONG, true));
-		query.setSort(sort);
+      for (PostPO po : list) {
+        Post m = BeanMapUtils.copy(po, 0);
 
-		@SuppressWarnings("unchecked")
-		List<PostPO> results = query.getResultList();
-		List<Post> rets = new ArrayList<>(results.size());
+        // 处理高亮
+        String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
+        String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
 
-		for (PostPO po : results) {
-			Post m = BeanMapUtils.copy(po, 0);
-			rets.add(m);
-		}
+        if (StringUtils.isNotEmpty(title)) {
+          m.setTitle(title);
+        }
+        if (StringUtils.isNotEmpty(summary)) {
+          m.setSummary(summary);
+        }
+        rets.add(m);
+      }
+      result=new PageImpl<>(rets, pageable, query.getResultSize());
+    } finally {
+      fullTextSession.close();
+    }
+    return result;
+  }
 
-		return new PageImpl<>(rets, pageable, query.getResultSize());
-	}
+  @Override
+  public Page<Post> searchByTag(Pageable pageable, String tag) {
+    FullTextEntityManager fullTextSession = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
+    SearchFactory sf = fullTextSession.getSearchFactory();
+    QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
 
-	@Override
-	public void resetIndexs() {
-		FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(entityManager);
-		//异步
-		fullTextSession.createIndexer(PostPO.class).start();
-	}
+    Query luceneQuery = qb.bool().must(qb.phrase().onField("tags").sentence(tag).createQuery()).createQuery();
+
+    FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
+    query.setFirstResult((int) pageable.getOffset());
+    query.setMaxResults(pageable.getPageSize());
+
+    Sort sort = new Sort(new SortField("id", SortField.Type.LONG, true));
+    query.setSort(sort);
+
+    @SuppressWarnings("unchecked")
+    List<PostPO> results = query.getResultList();
+    List<Post> rets = new ArrayList<>(results.size());
+
+    for (PostPO po : results) {
+      Post m = BeanMapUtils.copy(po, 0);
+      rets.add(m);
+    }
+
+    return new PageImpl<>(rets, pageable, query.getResultSize());
+  }
+
+  @Override
+  public void resetIndexs() {
+    FullTextEntityManager fullTextSession = Search.getFullTextEntityManager(entityManager);
+    //异步
+    fullTextSession.createIndexer(PostPO.class).start();
+  }
 
 }
