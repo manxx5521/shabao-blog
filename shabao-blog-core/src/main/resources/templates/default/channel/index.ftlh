@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                            <@classify row/><a href="${base}/view/${row.id}">${row.title}</a>
+                                            <@classify row/><a href="${base}/view/${row.id}">${row.title?no_esc}</a>
                                         </div>
                                     </div>
                                 </li>

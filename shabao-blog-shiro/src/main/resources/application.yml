@@ -1,7 +1,7 @@
 server:
   ssl:
-    key-store: classpath:214734375330075.pfx
-    key-store-password: 214734375330075
+    key-store: classpath:5401785_www.xiaoshabao.com.pfx
+    key-store-password: Q689ARj7
     #keyStoreType: JKS
   
 spring:
@@ -21,6 +21,7 @@ spring:
       hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       hibernate.cache.use_second_level_cache: false
       hibernate.search.default.directory_provider: filesystem
+    #在事务外也可以访问懒加载的数据
     open-in-view: true
     
   #freemarker配置

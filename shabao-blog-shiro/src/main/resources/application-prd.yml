@@ -8,9 +8,11 @@ http:
   port: 80
   
 spring:
-  profiles: prd
+  config:
+    activate:
+      on-profile: prd
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://47.75.206.89:3306/shabao_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: master
     password: 19911105man
