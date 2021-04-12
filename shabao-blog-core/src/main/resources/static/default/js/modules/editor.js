@@ -1,13 +1,3 @@
-/*
-+--------------------------------------------------------------------------
-|   Mblog [#RELEASE_VERSION#]
-|   ========================================
-|   Copyright (c) 2014, 2015 mtons. All Rights Reserved
-|   http://www.mtons.com
-|
-+---------------------------------------------------------------------------
-*/
-
 define(function(require, exports, module) {
 
 
@@ -25,10 +15,10 @@ define(function(require, exports, module) {
                 plugins: [
                     'advlist autolink autosave lists link image print anchor codesample',
                     'searchreplace visualblocks code fullscreen textcolor colorpicker textpattern uploadimage',
-                    'contextmenu paste'
+                    'contextmenu paste','table'
                 ],
-                toolbar: "undo redo | formatselect bold underline blockquote alignleft aligncenter alignright " +
-                "forecolor bullist numlist link unlink uploadimage codesample removeformat fullscreen ",
+                toolbar: "undo redo formatselect bold underline blockquote alignleft aligncenter indent " +
+                "forecolor bullist numlist link table uploadimage codesample removeformat fullscreen ",
                 menubar: false,
                 language: "zh_CN",
                 statusbar : false,
