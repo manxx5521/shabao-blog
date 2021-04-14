@@ -32,11 +32,11 @@
                 </div>
             </div>
             <div class="panel-footer operate">
-                <#list view.tagsArray as tag>
-                    <span>
-                            <a class="label label-default" href="${base}/tag/${tag}/">#${tag}</a>
-                        </span>
-                </#list>
+            <#if view.tagsArray?? && (view.tagsArray?size >0)>
+	            <#list view.tagsArray as tag>
+	                <span><a class="label label-default" href="${base}/tag/${tag}/">#${tag}</a></span>
+	            </#list>
+            </#if>
             </div>
             <div class="panel-footer operate">
                 <div class="hidden-xs">
