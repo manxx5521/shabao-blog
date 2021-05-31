@@ -1,0 +1,50 @@
+server:
+  port: 10000
+
+spring:
+  application:
+    name: shabao-blog
+  profiles:
+    active: dev
+    
+  #jpa配置
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+      hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      hibernate.cache.use_second_level_cache: false
+      hibernate.search.default.directory_provider: filesystem
+    open-in-view: true
+    
+  #freemarker配置
+  freemarker:
+    request-context-attribute: request
+    settings:
+      number_format: 0.##
+    
+  cache:
+#    cache-names: sysConfig
+#    time-to-live: 10000
+
+  #spring邮件设置
+  mail:
+    host: smtp.mxhichina.com
+    username: admin@xiaoshabao.com
+    password: you1991XIANG
+    port: 25
+    properties:
+      mail.smtp.auth: true
+  
+#mybatis
+mybatis:
+  #实体类包名，设置后可以用类名代替全路径名称
+  type-aliases-package: com.xiaoshabao.blog.entity
+  #设置mapper存放位置
+  mapper-locations: classpath:mapper/**.xml
+  #开启驼峰命名规范
+  configuration:
+    mapUnderscoreToCamelCase: true

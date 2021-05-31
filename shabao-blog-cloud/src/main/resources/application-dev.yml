@@ -1,0 +1,51 @@
+eureka:
+  client:
+    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/ #非认证模式
+      defaultZone: http://user:123@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true #服务端管理界面显示ip地址
+    
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://47.75.206.89:3306/shabao_blog_test?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: master
+    password: 19911105man
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate.search.default.indexBase: E:/test/cun/indexes
+  redis:
+    database: 2
+    port: 6379
+    host: 47.75.206.89
+    password: 19911105man
+    pool:
+      max-active: 20
+  devtools:
+    restart:
+      enabled: true  #是否开启
+      additional-paths: src/main/java #需要重启的目录
+      exclude: static/**,public/**,templates/** #不需要重启的目录
+
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      clientId: shabao
+      clientSecret: 123456
+      loginCenterUri: http://localhost:8080/login
+      accessTokenUri: http://localhost:8080/shabao-gateauth/oauth/token
+      userAuthorizationUri: http://localhost:8080/shabao-gateauth/oauth/authorize
+    resource:
+      id: blog-service
+      userInfoUri: http://localhost:8080/shabao-gateauth/user
+      prefer-token-info: false
+
+logging:
+  level:
+    root: DEBUG
+    com.xiaoshabao.blog.mapper: DEBUG
+#  path: C:/logs

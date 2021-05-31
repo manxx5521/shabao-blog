@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.xiaoshabao.blog</groupId>
 		<artifactId>shabao-blog</artifactId>
-		<version>${shabao.blog}</version>
+		<version>1.0.0</version>
 	</parent>
 	
 	<properties>

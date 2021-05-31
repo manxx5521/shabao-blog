@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.xiaoshabao.blog</groupId>
 	<artifactId>shabao-blog</artifactId>
-	<version>${shabao.blog}</version>
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>com.xiaoshabao</groupId>

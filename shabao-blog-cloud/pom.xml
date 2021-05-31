@@ -1,13 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>shabao-blog-cloud</artifactId>
-	<description>博客cloud集成包</description>
-	<packaging>jar</packaging>
 	<parent>
 		<groupId>com.xiaoshabao.blog</groupId>
 		<artifactId>shabao-blog</artifactId>
-		<version>${shabao.blog}</version>
+		<version>1.0.0</version>
 	</parent>
+	<artifactId>shabao-blog-cloud</artifactId>
+	<name>shabao-blog-cloud</name>
+	<description>博客微服务项目</description>
+	<dependencies>
+		<!-- 基础包 -->
+		<dependency>
+			<groupId>com.xiaoshabao.blog</groupId>
+			<artifactId>shabao-blog-core</artifactId>
+		</dependency>
+		
+		<!--增加eureka-client的依赖 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<!--提供监控接口 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- oauth2支持 -->
+		<dependency>
+			<groupId>org.springframework.security.oauth.boot</groupId>
+			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+		</dependency>
+		<dependency>
+	        <groupId>org.springframework.security</groupId>
+	        <artifactId>spring-security-oauth2-resource-server</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.security</groupId>
+	        <artifactId>spring-security-oauth2-jose</artifactId>
+	    </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- 设置jar包默认运行时启动的类 -->
+					<maimClass>com.xiaoshabao.blog.ShabaoBlogCloudApplication</maimClass>
+					<fork>true</fork>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
